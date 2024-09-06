@@ -12,6 +12,7 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import { useLocalStorage } from "usehooks-ts"
 import HeroSelection from "./hero-selection"
+import FormationGenerator from "./formation-generator"
 
 const storageKey = "selectedHeroes"
 
@@ -54,6 +55,9 @@ export default function BearFormation() {
         <div>
             {pageIndex == 0 &&
                 <HeroSelection heroes={HEROES} onHeroSelection={onHeroClick} selectedHeroes={selectedHeroes} resetAll={resetAll} onNextPage={() => setPageIndex(pageIndex + 1)}></HeroSelection>
+            }
+            {pageIndex == 1 &&
+                <FormationGenerator heroes={HEROES} selectedHeroes={selectedHeroes}></FormationGenerator>
             }
         </div>
     )

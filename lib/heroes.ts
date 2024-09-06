@@ -363,6 +363,20 @@ export function customGroupBy<T, K extends GroupKey>(array: T[], keyFn: (item: T
   }, {} as Record<K, T[]>);
 }
 
+export function generateFormations(heroes: Hero[]): Hero[][] {
+
+    const remainingHeroes: Hero[] = heroes
+
+    console.log(heroes.length)
+    console.log(heroes.filter(hero => !hero.isLeader))
+    console.log(heroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroB.rank - heroA.rank).slice(0, 3))
+
+    const rally = remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroA.rank - heroB.rank).slice(0, 3)
+    rally.forEach(hero => remainingHeroes.splice(remainingHeroes.indexOf(hero), 1))
+
+    return [rally]
+}
+
 /*export function getClassImage(class: HeroClass): string {
     return "fjdks"
 }*/
