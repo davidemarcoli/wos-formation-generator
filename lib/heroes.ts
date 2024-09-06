@@ -350,6 +350,19 @@ export const getHeroImage = (heroName: string): string => {
     return `/images/heroes/${cleanedName}.png`
 }
 
+type GroupKey = string | number | symbol;
+
+export function customGroupBy<T, K extends GroupKey>(array: T[], keyFn: (item: T) => K): Record<K, T[]> {
+  return array.reduce((result: Record<K, T[]>, item: T) => {
+    const key = keyFn(item);
+    if (!result[key]) {
+      result[key] = [];
+    }
+    result[key].push(item);
+    return result;
+  }, {} as Record<K, T[]>);
+}
+
 /*export function getClassImage(class: HeroClass): string {
     return "fjdks"
 }*/

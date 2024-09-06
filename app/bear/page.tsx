@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { getClassImage, getHeroImage, HEROES } from "@/lib/heroes"
+import { customGroupBy, getClassImage, getHeroImage, HEROES } from "@/lib/heroes"
 import Image from "next/image"
 
 export default function BearFormation() {
@@ -16,7 +16,7 @@ export default function BearFormation() {
                 Heroes
             </h1>
 
-            {Object.entries(Object.groupBy(HEROES, ({ gen }) => gen)).map(([gen, heroes]) =>
+            {Object.entries(customGroupBy(HEROES, ({ gen }) => gen)).map(([gen, heroes]) =>
                 <div key={'gen' + gen}>
                     <h2 className="text-2xl mt-12">Gen {gen}</h2>
 
