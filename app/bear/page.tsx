@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Card,
     CardContent,
@@ -5,46 +7,54 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { customGroupBy, getClassImage, getHeroImage, HEROES } from "@/lib/heroes"
+import { customGroupBy, getClassImage, getHeroImage, Hero, HEROES } from "@/lib/heroes"
 import Image from "next/image"
+import { useEffect, useState } from "react"
+import { useLocalStorage } from "usehooks-ts"
+import HeroSelection from "./hero-selection"
+
+const storageKey = "selectedHeroes"
 
 export default function BearFormation() {
 
+    const [selectedHeroes, setSelectedHeroes] = useState<Set<string>>(new Set<string>())
+    const [pageIndex, setPageIndex] = useState<number>(0)
+
+    useEffect(() => {
+        const storedData = localStorage.getItem(storageKey)
+        if (storedData) {
+            setSelectedHeroes(new Set(JSON.parse(storedData)))
+        }
+    }, [])
+
+    function onHeroClick(hero: Hero) {
+        if (selectedHeroes.has(hero.name)) {
+
+            const newHeroes = new Set(selectedHeroes)
+            newHeroes.delete(hero.name)
+            setSelectedHeroes(newHeroes)
+            //console.log(newHeroes)
+            localStorage.setItem(storageKey, JSON.stringify(Array.from(newHeroes)))
+        } else {
+            setSelectedHeroes(current => {
+                const newHeroes = new Set(current).add(hero.name)
+                //console.log(newHeroes)
+                localStorage.setItem(storageKey, JSON.stringify(Array.from(newHeroes)))
+                return newHeroes
+            })
+        }
+    }
+
+    function resetAll() {
+        setSelectedHeroes(new Set())
+        localStorage.setItem(storageKey, JSON.stringify([]))
+    }
+
     return (
-        <div className="flex flex-col h-screen w-full p-16">
-            <h1 className="text-4xl text-center">
-                Heroes
-            </h1>
-
-            {Object.entries(customGroupBy(HEROES, ({ gen }) => gen)).map(([gen, heroes]) =>
-                <div key={'gen' + gen}>
-                    <h2 className="text-2xl mt-12">Gen {gen}</h2>
-
-                    <div className="grid grid-cols-3 gap-4 mt-4">
-                        {
-                            heroes?.map(hero =>
-                                <Card key={hero.name}>
-                                    <Image className="float-right" style={{borderTopRightRadius: "var(--radius)", borderBottomRightRadius: "var(--radius)"}} alt={hero.name} src={getHeroImage(hero.name)} height={200} width={200}></Image>
-                                    <CardHeader>
-                                        <CardTitle className="flex gap-2">{hero.name} <Image alt="hero-class" src={getClassImage(hero.class)} width={25} height={25}></Image></CardTitle>
-                                        {/* <CardDescription>Gen {hero.gen}</CardDescription> */}
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p>bla content</p>
-                                    </CardContent>
-                                    <CardFooter>
-                                        <p>bla footer</p>
-                                    </CardFooter>
-                                </Card>
-
-                            )
-                        }
-                    </div>
-                </div>
-            )}
-
-
-
+        <div>
+            {pageIndex == 0 &&
+                <HeroSelection heroes={HEROES} onHeroSelection={onHeroClick} selectedHeroes={selectedHeroes} resetAll={resetAll} onNextPage={() => setPageIndex(pageIndex + 1)}></HeroSelection>
+            }
         </div>
     )
 }
