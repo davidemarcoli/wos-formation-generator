@@ -1,15 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import { customGroupBy, getClassImage, getHeroImage, Hero } from "@/lib/heroes"
-import Image from "next/image"
+import { customGroupBy, Hero } from "@/lib/heroes"
+import HeroCard from "./hero-card"
 
 interface HeroSelectionProps {
     heroes: Hero[],
@@ -59,23 +52,7 @@ export default function HeroSelection({
                     <div className="grid grid-cols-3 gap-4 mt-4">
                         {
                             heroes?.map(hero =>
-                                <Card key={hero.name} onClick={() => onHeroSelection(hero)} style={{ borderWidth: selectedHeroes.has(hero.name) ? 2 : 1, borderColor: selectedHeroes.has(hero.name) ? "white" : "hsl(var(--border))" }}>
-                                    <Image className="float-right" style={{ borderTopRightRadius: "var(--radius)", borderBottomRightRadius: "var(--radius)" }} alt={hero.name} src={getHeroImage(hero.name)} height={200} width={200}></Image>
-                                    <CardHeader>
-                                        <div className="flex gap-2">
-                                            <CardTitle>{hero.name}</CardTitle>
-                                            <Image alt="hero-class" src={getClassImage(hero.class)} width={25} height={25} style={{ maxHeight: "25px" }}></Image>
-                                        </div>
-                                        {/* <CardDescription>Gen {hero.gen}</CardDescription> */}
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p>bla content</p>
-                                    </CardContent>
-                                    <CardFooter>
-                                        <p>bla footer</p>
-                                    </CardFooter>
-                                </Card>
-
+                                <HeroCard key={hero.name} hero={hero} isSelected={selectedHeroes.has(hero.name)} onHeroSelection={onHeroSelection} />
                             )
                         }
                     </div>

@@ -2,6 +2,7 @@
 
 import { generateFormations, Hero } from "@/lib/heroes"
 import { useEffect, useState } from "react"
+import HeroCard from "./hero-card"
 
 interface HeroSelectionProps {
     heroes: Hero[],
@@ -27,10 +28,15 @@ export default function FormationGenerator({
             </h1>
 
             {formations?.map((formation, index) =>
-                <div key={index}>
-                    {formation.map(hero =>
-                        <div key={hero.name}>{hero.name}</div>
-                    )}
+
+                <div key={'formation' + index}>
+                    <h2 className="text-2xl mt-12">Formation {index + 1}</h2>
+
+                    <div className="grid grid-cols-3 gap-4 mt-4">
+                        {formation.map(hero =>
+                            <HeroCard key={hero.name} hero={hero} />
+                        )}
+                    </div>
                 </div>
             )}
         </div>

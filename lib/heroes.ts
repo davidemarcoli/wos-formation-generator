@@ -11,8 +11,10 @@ export enum HeroClass {
 }
 
 export type Hero = {
-    name: string,
-    class: HeroClass,
+    name: string
+    class: HeroClass
+    isRallyHero?: boolean
+    rallyHeroRank?: number
     isLeader?: boolean
     leaderRank?: number
     rank: number
@@ -138,6 +140,8 @@ export const HEROES: Hero[] = [
     {
         name: "Jeronimo",
         class: HeroClass.INFANTRY,
+        isRallyHero: true,
+        rallyHeroRank: 1,
         rank: 10,
         gen: 1,
         rarity: HeroRarity.LEGENDARY
@@ -189,6 +193,8 @@ export const HEROES: Hero[] = [
     {
         name: "Mia",
         class: HeroClass.LANCER,
+        isRallyHero: true,
+        rallyHeroRank: 1,
         rank: 10,
         gen: 3,
         rarity: HeroRarity.LEGENDARY
@@ -226,6 +232,8 @@ export const HEROES: Hero[] = [
     {
         name: "Hector",
         class: HeroClass.INFANTRY,
+        isRallyHero: true,
+        rallyHeroRank: 2,
         rank: 10,
         gen: 5,
         rarity: HeroRarity.LEGENDARY
@@ -284,6 +292,8 @@ export const HEROES: Hero[] = [
     {
         name: "Bradley",
         class: HeroClass.MARKSMEN,
+        isRallyHero: true,
+        rallyHeroRank: 1,
         rank: 10,
         gen: 7,
         rarity: HeroRarity.LEGENDARY
@@ -367,14 +377,56 @@ export function generateFormations(heroes: Hero[]): Hero[][] {
 
     const remainingHeroes: Hero[] = heroes
 
-    console.log(heroes.length)
-    console.log(heroes.filter(hero => !hero.isLeader))
-    console.log(heroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroB.rank - heroA.rank).slice(0, 3))
+    const rally: Hero[] = []
+    
+    remainingHeroes.filter(hero => hero.isRallyHero).sort((heroA, heroB) => heroA.rallyHeroRank! - heroB.rallyHeroRank!).forEach(hero => {
+        if (rally.length < 3 && !rally.some(rallyHero => rallyHero.class === hero.class)) {
+            rally.push(hero)
+        }
+    });
 
-    const rally = remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroA.rank - heroB.rank).slice(0, 3)
+    if (rally.length != 3) {
+        remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroA.rank - heroB.rank).forEach(hero => {
+            if (rally.length < 3 && !rally.some(rallyHero => rallyHero.class === hero.class)) {
+                rally.push(hero)
+            }
+        })
+    }
+
     rally.forEach(hero => remainingHeroes.splice(remainingHeroes.indexOf(hero), 1))
 
-    return [rally]
+
+    const normalFormations: Hero[][] = []
+
+    const leaderHeroes = remainingHeroes.filter(hero => hero.isLeader).sort((heroA, heroB) => heroA.leaderRank! - heroB.leaderRank!)
+
+    leaderHeroes.forEach((hero, i) => {
+        normalFormations.push([])
+        normalFormations[i].push(hero)
+    });
+
+    if (leaderHeroes.length < 5) {
+        remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroA.rank - heroB.rank).forEach((hero, i) => {
+            if (leaderHeroes.length + i < 5) {
+                normalFormations.push([])
+                normalFormations[leaderHeroes.length + i].push(hero)
+            }
+        })
+    }
+
+    normalFormations.forEach(heroes => remainingHeroes.splice(remainingHeroes.indexOf(heroes[0]), 1))
+
+    normalFormations.forEach((heroes, i) => {
+        remainingHeroes.sort((heroA, heroB) => heroA.rank - heroB.rank).forEach(hero => {
+            if (normalFormations[i].length < 3 && !normalFormations[i].some(formationHero => formationHero.class === hero.class)) {
+                normalFormations[i].push(hero)
+            }
+        });
+        normalFormations[i].slice(1).forEach(hero => remainingHeroes.splice(remainingHeroes.indexOf(hero), 1))
+    })
+    
+
+    return [rally, ...normalFormations]
 }
 
 /*export function getClassImage(class: HeroClass): string {
