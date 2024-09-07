@@ -10,8 +10,6 @@ import {
 } from "@/components/ui/card"
 import { customGroupBy, getClassImage, getHeroImage, Hero } from "@/lib/heroes"
 import Image from "next/image"
-import { useState } from "react"
-import { useLocalStorage } from "usehooks-ts"
 
 interface HeroSelectionProps {
     heroes: Hero[],

@@ -1,16 +1,7 @@
 "use client"
 
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import { customGroupBy, getClassImage, getHeroImage, Hero, HEROES } from "@/lib/heroes"
-import Image from "next/image"
+import { Hero, HEROES } from "@/lib/heroes"
 import { useEffect, useState } from "react"
-import { useLocalStorage } from "usehooks-ts"
 import HeroSelection from "./hero-selection"
 import FormationGenerator from "./formation-generator"
 

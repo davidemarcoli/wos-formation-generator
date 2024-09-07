@@ -1,17 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import { customGroupBy, generateFormations, getClassImage, getHeroImage, Hero } from "@/lib/heroes"
-import Image from "next/image"
+import { generateFormations, Hero } from "@/lib/heroes"
 import { useEffect, useState } from "react"
-import { useLocalStorage } from "usehooks-ts"
 
 interface HeroSelectionProps {
     heroes: Hero[],
@@ -28,7 +18,7 @@ export default function FormationGenerator({
 
     useEffect(() => {
         setFormations(generateFormations(heroes.filter(hero => selectedHeroes.has(hero.name))))
-    }, [])
+    }, [heroes, selectedHeroes])
 
     return (
         <div className="flex flex-col h-screen w-full p-16">
@@ -38,7 +28,7 @@ export default function FormationGenerator({
 
             {formations?.map((formation, index) =>
                 <div key={index}>
-                    {formation.map(hero => 
+                    {formation.map(hero =>
                         <div key={hero.name}>{hero.name}</div>
                     )}
                 </div>
