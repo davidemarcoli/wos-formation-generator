@@ -142,6 +142,8 @@ export const HEROES: Hero[] = [
         class: HeroClass.INFANTRY,
         isRallyHero: true,
         rallyHeroRank: 1,
+        isLeader: true,
+        leaderRank: 1,
         rank: 10,
         gen: 1,
         rarity: HeroRarity.LEGENDARY
@@ -195,6 +197,8 @@ export const HEROES: Hero[] = [
         class: HeroClass.LANCER,
         isRallyHero: true,
         rallyHeroRank: 1,
+        isLeader: true,
+        leaderRank: 2,
         rank: 10,
         gen: 3,
         rarity: HeroRarity.LEGENDARY
@@ -202,6 +206,8 @@ export const HEROES: Hero[] = [
     {
         name: "Greg",
         class: HeroClass.MARKSMEN,
+        isLeader: true,
+        leaderRank: 2,
         rank: 10,
         gen: 3,
         rarity: HeroRarity.LEGENDARY
@@ -217,6 +223,8 @@ export const HEROES: Hero[] = [
     {
         name: "Reina",
         class: HeroClass.LANCER,
+        isLeader: true,
+        leaderRank: 2,
         rank: 10,
         gen: 4,
         rarity: HeroRarity.LEGENDARY
@@ -224,6 +232,8 @@ export const HEROES: Hero[] = [
     {
         name: "Lynn",
         class: HeroClass.MARKSMEN,
+        isLeader: true,
+        leaderRank: 1,
         rank: 10,
         gen: 4,
         rarity: HeroRarity.LEGENDARY
@@ -248,6 +258,8 @@ export const HEROES: Hero[] = [
     {
         name: "Gwen",
         class: HeroClass.MARKSMEN,
+        isLeader: true,
+        leaderRank: 2,
         rank: 10,
         gen: 5,
         rarity: HeroRarity.LEGENDARY
@@ -270,6 +282,8 @@ export const HEROES: Hero[] = [
     {
         name: "Wayne",
         class: HeroClass.MARKSMEN,
+        isLeader: true,
+        leaderRank: 1,
         rank: 10,
         gen: 6,
         rarity: HeroRarity.LEGENDARY
@@ -294,6 +308,8 @@ export const HEROES: Hero[] = [
         class: HeroClass.MARKSMEN,
         isRallyHero: true,
         rallyHeroRank: 1,
+        isLeader: true,
+        leaderRank: 1,
         rank: 10,
         gen: 7,
         rarity: HeroRarity.LEGENDARY
@@ -400,7 +416,8 @@ export function generateFormations(heroes: Hero[]): Hero[][] {
 
     const leaderHeroes = remainingHeroes.filter(hero => hero.isLeader).sort((heroA, heroB) => heroA.leaderRank! - heroB.leaderRank!)
 
-    leaderHeroes.forEach((hero, i) => {
+    // create n formations (5)
+    leaderHeroes.slice(0, 5).forEach((hero, i) => {
         normalFormations.push([])
         normalFormations[i].push(hero)
     });
