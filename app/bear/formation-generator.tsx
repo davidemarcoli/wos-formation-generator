@@ -32,7 +32,7 @@ export default function FormationGenerator({
                 <div key={'formation' + index}>
                     <h2 className="text-2xl mt-12">Formation {index + 1}</h2>
 
-                    <div className="grid grid-cols-3 gap-4 mt-4">
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-4">
                         {formation.map(hero =>
                             <HeroCard key={hero.name} hero={hero} />
                         )}

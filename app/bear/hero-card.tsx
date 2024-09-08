@@ -30,12 +30,12 @@ export default function HeroCard({
                 </div>
                 {/* <CardDescription>Gen {hero.gen}</CardDescription> */}
             </CardHeader>
-            <CardContent>
+            {/* <CardContent>
                 <p>bla content</p>
             </CardContent>
             <CardFooter>
                 <p>bla footer</p>
-            </CardFooter>
+            </CardFooter> */}
         </Card>
     )
 }

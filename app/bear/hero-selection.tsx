@@ -49,7 +49,7 @@ export default function HeroSelection({
                 <div key={'gen' + gen}>
                     <h2 className="text-2xl mt-12">Gen {gen}</h2>
 
-                    <div className="grid grid-cols-3 gap-4 mt-4">
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-4">
                         {
                             heroes?.map(hero =>
                                 <HeroCard key={hero.name} hero={hero} isSelected={selectedHeroes.has(hero.name)} onHeroSelection={onHeroSelection} />
