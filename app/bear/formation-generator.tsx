@@ -6,7 +6,7 @@ import HeroCard from "./hero-card"
 
 interface HeroSelectionProps {
     heroes: Hero[],
-    selectedHeroes: Set<string>,
+    selectedHeroes: Set<Hero>,
 }
 
 export default function FormationGenerator({
@@ -18,7 +18,7 @@ export default function FormationGenerator({
     const [formations, setFormations] = useState<Hero[][]>()
 
     useEffect(() => {
-        setFormations(generateFormations(heroes.filter(hero => selectedHeroes.has(hero.name))))
+        setFormations(generateFormations(Array.from(selectedHeroes.values())))
     }, [heroes, selectedHeroes])
 
     return (

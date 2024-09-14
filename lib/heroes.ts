@@ -14,12 +14,14 @@ export type Hero = {
     name: string
     class: HeroClass
     isRallyHero?: boolean
-    rallyHeroRank?: number
+    rallyHeroRank?: number,
+    rallyHeroRequiredStars?: number
     isLeader?: boolean
     leaderRank?: number
     rank: number
     gen: number
-    rarity: HeroRarity
+    rarity: HeroRarity,
+    stars?: number
 }
 
 export const HEROES: Hero[] = [
@@ -142,6 +144,7 @@ export const HEROES: Hero[] = [
         class: HeroClass.INFANTRY,
         isRallyHero: true,
         rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4,
         isLeader: true,
         leaderRank: 1,
         rank: 10,
@@ -173,6 +176,8 @@ export const HEROES: Hero[] = [
     {
         name: "Philly",
         class: HeroClass.LANCER,
+        isLeader: true,
+        leaderRank: 2,
         rank: 10,
         gen: 2,
         rarity: HeroRarity.LEGENDARY
@@ -180,6 +185,8 @@ export const HEROES: Hero[] = [
     {
         name: "Alonso",
         class: HeroClass.MARKSMEN,
+        isRallyHero: true,
+        rallyHeroRank: 2,
         rank: 10,
         gen: 2,
         rarity: HeroRarity.LEGENDARY
@@ -233,7 +240,7 @@ export const HEROES: Hero[] = [
         name: "Lynn",
         class: HeroClass.MARKSMEN,
         isLeader: true,
-        leaderRank: 1,
+        leaderRank: 2,
         rank: 10,
         gen: 4,
         rarity: HeroRarity.LEGENDARY
@@ -275,6 +282,8 @@ export const HEROES: Hero[] = [
     {
         name: "Renee",
         class: HeroClass.LANCER,
+        isRallyHero: true,
+        rallyHeroRank: 1,
         rank: 10,
         gen: 6,
         rarity: HeroRarity.LEGENDARY
@@ -283,7 +292,7 @@ export const HEROES: Hero[] = [
         name: "Wayne",
         class: HeroClass.MARKSMEN,
         isLeader: true,
-        leaderRank: 1,
+        leaderRank: 2,
         rank: 10,
         gen: 6,
         rarity: HeroRarity.LEGENDARY
@@ -332,7 +341,7 @@ export const HEROES: Hero[] = [
     {
         name: "Hendrik",
         class: HeroClass.MARKSMEN,
-        rank: 10,
+        rank: 20,
         gen: 8,
         rarity: HeroRarity.LEGENDARY
     },
@@ -397,6 +406,9 @@ export function generateFormations(heroes: Hero[]): Hero[][] {
     
     remainingHeroes.filter(hero => hero.isRallyHero).sort((heroA, heroB) => heroA.rallyHeroRank! - heroB.rallyHeroRank!).forEach(hero => {
         if (rally.length < 3 && !rally.some(rallyHero => rallyHero.class === hero.class)) {
+            if (hero.stars && hero.rallyHeroRequiredStars && hero.stars >= hero.rallyHeroRequiredStars) {
+                return
+            }
             rally.push(hero)
         }
     });
@@ -416,8 +428,8 @@ export function generateFormations(heroes: Hero[]): Hero[][] {
 
     const leaderHeroes = remainingHeroes.filter(hero => hero.isLeader).sort((heroA, heroB) => heroA.leaderRank! - heroB.leaderRank!)
 
-    // create n formations (5)
-    leaderHeroes.slice(0, 5).forEach((hero, i) => {
+    // create n formations (6)
+    leaderHeroes.slice(0, 6).forEach((hero, i) => {
         normalFormations.push([])
         normalFormations[i].push(hero)
     });

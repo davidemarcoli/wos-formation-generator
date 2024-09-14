@@ -6,8 +6,9 @@ import HeroCard from "./hero-card"
 
 interface HeroSelectionProps {
     heroes: Hero[],
-    selectedHeroes: Set<string>,
+    selectedHeroes: Set<Hero>,
     onHeroSelection: (hero: Hero) => void,
+    onHeroStarSelection: (hero: Hero, stars: number) => void,
     resetAll: () => void,
     onNextPage: () => void
 }
@@ -16,6 +17,7 @@ export default function HeroSelection({
     heroes,
     selectedHeroes,
     onHeroSelection,
+    onHeroStarSelection,
     resetAll,
     onNextPage
 }: HeroSelectionProps) {
@@ -24,14 +26,14 @@ export default function HeroSelection({
         if (areAllHeroesSelected()) {
             resetAll()
         } else {
-            heroes.filter(hero => !selectedHeroes.has(hero.name)).forEach(hero => {
+            heroes.filter(hero => !selectedHeroes.has(hero)).forEach(hero => {
                 onHeroSelection(hero)
             })
         }
     }
 
     function areAllHeroesSelected(): boolean {
-        return heroes.every(hero => selectedHeroes.has(hero.name))
+        return heroes.every(hero => selectedHeroes.has(hero))
     }
 
     return (
@@ -51,9 +53,12 @@ export default function HeroSelection({
 
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-4">
                         {
-                            heroes?.map(hero =>
-                                <HeroCard key={hero.name} hero={hero} isSelected={selectedHeroes.has(hero.name)} onHeroSelection={onHeroSelection} />
-                            )
+                            heroes?.map(hero => {
+                                const selectedHero = Array.from(selectedHeroes.values()).find(selectedHero => selectedHero.name == hero.name)
+                                return (
+                                    <HeroCard key={hero.name} hero={selectedHero || hero} isSelected={!!selectedHero} onHeroSelection={onHeroSelection} onHeroStarSelection={(stars: number) => onHeroStarSelection(hero, stars)} />
+                                )
+                            })
                         }
                     </div>
                 </div>
