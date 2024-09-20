@@ -23,30 +23,48 @@ export default function HeroCard({
     onHeroStarSelection = () => {}
 }: HeroCardProps) {
     return (
-        <Card key={hero.name} style={{ borderWidth: isSelected ? 2 : 1, borderColor: isSelected ? "white" : "hsl(var(--border))" }}>
-            <Image className="float-right" style={{ borderTopRightRadius: "var(--radius)", borderBottomRightRadius: "var(--radius)" }} alt={hero.name} src={getHeroImage(hero.name)} height={200} width={200}></Image>
-            <CardHeader onClick={() => onHeroSelection(hero)} className="w-48">
-                <div className="flex gap-2">
-                    <CardTitle>{hero.name}</CardTitle>
-                    <Image alt="hero-class" src={getClassImage(hero.class)} width={25} height={25} style={{ maxHeight: "25px" }}></Image>
-                </div>
-                {/* <CardDescription>Gen {hero.gen}</CardDescription> */}
-            </CardHeader>
-            <CardContent>
-                <div className="flex z-1 w-24">
-                    <Star fill="white" fillOpacity={hero.stars && hero.stars >= 1 ? 1 : 0} onClick={() => onHeroStarSelection(1)}></Star>
-                    <Star fill="white" fillOpacity={hero.stars && hero.stars >= 2 ? 1 : 0} onClick={() => onHeroStarSelection(2)}></Star>
-                    <Star fill="white" fillOpacity={hero.stars && hero.stars >= 3 ? 1 : 0} onClick={() => onHeroStarSelection(3)}></Star>
-                    <Star fill="white" fillOpacity={hero.stars && hero.stars >= 4 ? 1 : 0} onClick={() => onHeroStarSelection(4)}></Star>
-                    <Star fill="white" fillOpacity={hero.stars && hero.stars >= 5 ? 1 : 0} onClick={() => onHeroStarSelection(5)}></Star>
-                </div>
-            </CardContent>
-            {/* <CardContent>
-                <p>bla content</p>
-            </CardContent>
-            <CardFooter>
-                <p>bla footer</p>
-            </CardFooter> */}
-        </Card>
+<Card 
+      className={`flex flex-col sm:flex-row overflow-hidden transition-all duration-300 ${
+        isSelected ? 'ring-2 ring-white' : 'ring-1 ring-border'
+      }`}
+      key={hero.name}
+    >
+      <div className="p-4 sm:p-6 flex flex-col justify-between flex-grow">
+        <div className="flex items-center gap-2 mb-2">
+          <CardTitle 
+            className="text-lg sm:text-xl cursor-pointer hover:underline"
+            onClick={() => onHeroSelection(hero)}
+          >
+            {hero.name}
+          </CardTitle>
+          <Image
+            alt="hero-class"
+            src={getClassImage(hero.class)}
+            width={25}
+            height={25}
+            className="w-6 h-6 object-contain"
+          />
+        </div>
+        <div className="flex">
+          {[1, 2, 3, 4, 5].map((starIndex) => (
+            <Star
+              key={starIndex}
+              className="w-5 h-5 cursor-pointer transition-opacity duration-200"
+              fill="white"
+              fillOpacity={hero.stars || 0 >= starIndex ? 1 : 0}
+              onClick={() => onHeroStarSelection(starIndex)}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="relative w-full sm:w-40 h-40">
+        <Image
+          className="object-cover rounded-b-lg sm:rounded-r-lg sm:rounded-bl-none"
+          alt={hero.name}
+          src={getHeroImage(hero.name)}
+          layout="fill"
+        />
+      </div>
+    </Card>
     )
 }
