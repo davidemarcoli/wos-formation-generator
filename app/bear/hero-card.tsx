@@ -61,20 +61,28 @@ export default function HeroCard({
                     {[1, 2, 3, 4, 5].map((starIndex) => (
                         <Star
                             key={starIndex}
-                            className={`w-5 h-5 transition-opacity duration-200 ${onHeroStarSelection ? 'cursor-pointer' : ''}`}
-                            fill="white"
-                            fillOpacity={(hero.stars || 0) >= starIndex ? 1 : 0}
+                            className={`w-5 h-5 transition-all duration-300 ease-in-out ${
+                                onHeroStarSelection ? 'cursor-pointer hover:scale-110 hover:rotate-12' : ''
+                            } ${
+                                (hero.stars || 0) >= starIndex 
+                                    ? 'text-yellow-400 scale-110 rotate-12' 
+                                    : 'text-gray-400 scale-100 rotate-0'
+                            }`}
+                            fill={(hero.stars || 0) >= starIndex ? 'currentColor' : 'none'}
+                            stroke="currentColor"
+                            strokeWidth={2}
                             onClick={() => handleStarClick(starIndex)}
                         />
                     ))}
-                    <div className="relative w-5 h-5 ml-2">
+                    <div className="relative w-5 h-5 ml-2 flex items-center justify-center">
                         <X
-                            className={`absolute inset-0 cursor-pointer text-gray-400 hover:text-white transition-all duration-300 ease-in-out
-                                ${hero.stars || 0 > 0 && onHeroStarSelection 
-                                    ? 'opacity-100 translate-y-0'
-                                    : 'opacity-0 translate-y-1 pointer-events-none'
+                            className={`absolute cursor-pointer text-gray-400 hover:text-white transition-all duration-300 ease-in-out
+                                ${hero.stars > 0 && onHeroStarSelection 
+                                    ? 'opacity-100 scale-100'
+                                    : 'opacity-0 scale-75 pointer-events-none'
                                 }`}
                             onClick={() => onHeroStarSelection && onHeroStarSelection(0)}
+                            size={20}
                         />
                     </div>
                 </div>
