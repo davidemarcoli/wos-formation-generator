@@ -1,5 +1,3 @@
-import { threadId } from "worker_threads"
-
 export enum HeroRarity {
     RARE,
     EPIC,
@@ -24,7 +22,7 @@ export type Hero = {
     gen: number
     rarity: HeroRarity,
     stars?: number,
-    isBestRallyHero?: (remainingHeroes: Hero[]) => {}
+    isBestRallyHero?: (remainingHeroes: Hero[]) => boolean
 }
 
 export const HEROES: Hero[] = [
