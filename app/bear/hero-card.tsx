@@ -21,7 +21,8 @@ export default function HeroCard({
     onHeroStarSelection
 }: HeroCardProps) {
     const handleCardClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        if (onHeroSelection && !event.target.closest('.star-rating')) {
+        const target = event.target as Element;
+        if (onHeroSelection && !target.closest('.star-rating')) {
             onHeroSelection(hero);
         }
     };
@@ -77,7 +78,7 @@ export default function HeroCard({
                     <div className="relative w-5 h-5 ml-2 flex items-center justify-center">
                         <X
                             className={`absolute cursor-pointer text-gray-400 hover:text-white transition-all duration-300 ease-in-out
-                                ${hero.stars > 0 && onHeroStarSelection
+                                ${hero.stars || 0 > 0 && onHeroStarSelection
                                     ? 'opacity-100 scale-100'
                                     : 'opacity-0 scale-75 pointer-events-none'
                                 }`}
