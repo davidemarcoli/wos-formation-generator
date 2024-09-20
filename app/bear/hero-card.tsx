@@ -76,15 +76,15 @@ export default function HeroCard({
                         />
                     ))}
                     <div className="relative w-5 h-5 ml-2 flex items-center justify-center">
-                        <X
+                        {onHeroStarSelection && <X
                             className={`absolute cursor-pointer text-gray-400 hover:text-white transition-all duration-300 ease-in-out
-                                ${hero.stars || 0 > 0 && onHeroStarSelection
+                                ${hero.stars || 0 > 0
                                     ? 'opacity-100 scale-100'
                                     : 'opacity-0 scale-75 pointer-events-none'
                                 }`}
-                            onClick={() => onHeroStarSelection && onHeroStarSelection(0)}
+                            onClick={() => onHeroStarSelection(0)}
                             size={20}
-                        />
+                        />}
                     </div>
                 </div>
             </div>
