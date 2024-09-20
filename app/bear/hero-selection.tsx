@@ -37,7 +37,7 @@ export default function HeroSelection({
     }
 
     return (
-        <div className="flex flex-col h-screen w-full p-4 sm:p-16">
+        <div className="flex flex-col w-full p-4 md:p-16">
             <h1 className="text-4xl text-center">
                 Heroes
             </h1>
