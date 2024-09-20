@@ -64,9 +64,9 @@ export default function HeroCard({
                             className={`w-5 h-5 transition-all duration-300 ease-in-out ${
                                 onHeroStarSelection ? 'cursor-pointer hover:scale-110 hover:rotate-12' : ''
                             } ${
-                                (hero.stars || 0) >= starIndex 
-                                    ? 'text-yellow-400 scale-110 rotate-12' 
-                                    : 'text-gray-400 scale-100 rotate-0'
+                                (hero.stars || 0) >= starIndex
+                                    ? 'text-cyan-400 scale-110 rotate-12'
+                                    : 'text-gray-600 scale-100 rotate-0'
                             }`}
                             fill={(hero.stars || 0) >= starIndex ? 'currentColor' : 'none'}
                             stroke="currentColor"
@@ -77,7 +77,7 @@ export default function HeroCard({
                     <div className="relative w-5 h-5 ml-2 flex items-center justify-center">
                         <X
                             className={`absolute cursor-pointer text-gray-400 hover:text-white transition-all duration-300 ease-in-out
-                                ${hero.stars > 0 && onHeroStarSelection 
+                                ${hero.stars > 0 && onHeroStarSelection
                                     ? 'opacity-100 scale-100'
                                     : 'opacity-0 scale-75 pointer-events-none'
                                 }`}
@@ -92,7 +92,9 @@ export default function HeroCard({
                     className="object-cover object-[center_25%] rounded-b-lg sm:rounded-r-lg sm:rounded-bl-none"
                     alt={hero.name}
                     src={getHeroImage(hero.name)}
-                    layout="fill"
+                    fill
+                    sizes="(max-width: 640px) 100vw, 160px"
+                    priority
                 />
             </div>
         </Card>
