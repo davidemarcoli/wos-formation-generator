@@ -25,7 +25,7 @@ export default function HeroCard({
     return (
         <Card key={hero.name} style={{ borderWidth: isSelected ? 2 : 1, borderColor: isSelected ? "white" : "hsl(var(--border))" }}>
             <Image className="float-right" style={{ borderTopRightRadius: "var(--radius)", borderBottomRightRadius: "var(--radius)" }} alt={hero.name} src={getHeroImage(hero.name)} height={200} width={200}></Image>
-            <CardHeader onClick={() => onHeroSelection(hero)}>
+            <CardHeader onClick={() => onHeroSelection(hero)} className="w-48">
                 <div className="flex gap-2">
                     <CardTitle>{hero.name}</CardTitle>
                     <Image alt="hero-class" src={getClassImage(hero.class)} width={25} height={25} style={{ maxHeight: "25px" }}></Image>
@@ -33,7 +33,7 @@ export default function HeroCard({
                 {/* <CardDescription>Gen {hero.gen}</CardDescription> */}
             </CardHeader>
             <CardContent>
-                <div className="flex z-1">
+                <div className="flex z-1 w-24">
                     <Star fill="white" fillOpacity={hero.stars && hero.stars >= 1 ? 1 : 0} onClick={() => onHeroStarSelection(1)}></Star>
                     <Star fill="white" fillOpacity={hero.stars && hero.stars >= 2 ? 1 : 0} onClick={() => onHeroStarSelection(2)}></Star>
                     <Star fill="white" fillOpacity={hero.stars && hero.stars >= 3 ? 1 : 0} onClick={() => onHeroStarSelection(3)}></Star>

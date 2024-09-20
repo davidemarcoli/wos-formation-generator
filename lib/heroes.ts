@@ -1,3 +1,5 @@
+import { threadId } from "worker_threads"
+
 export enum HeroRarity {
     RARE,
     EPIC,
@@ -21,7 +23,8 @@ export type Hero = {
     rank: number
     gen: number
     rarity: HeroRarity,
-    stars?: number
+    stars?: number,
+    isBestRallyHero?: (remainingHeroes: Hero[]) => {}
 }
 
 export const HEROES: Hero[] = [
@@ -253,7 +256,21 @@ export const HEROES: Hero[] = [
         rallyHeroRank: 2,
         rank: 10,
         gen: 5,
-        rarity: HeroRarity.LEGENDARY
+        rarity: HeroRarity.LEGENDARY,
+        isBestRallyHero(remainingHeroes) {
+            const jeronimo = remainingHeroes.find((hero) => hero.name === "Jeronimo")
+            if (!jeronimo || !jeronimo.stars) return true
+            if (jeronimo.stars > 3) {
+                return false
+            }
+            if (this.stars && this.stars === 5) {
+                return true
+            }
+            if (jeronimo.stars + 2 < (this.stars || 0)) {
+                return true
+            }
+            return false
+        },
     },
     {
         name: "Norah",
@@ -385,6 +402,10 @@ export const getHeroImage = (heroName: string): string => {
     return `/images/heroes/${cleanedName}.png`
 }
 
+const findByName = (name: string, heroes: Hero[]): Hero | undefined => {
+    return heroes.find(hero => hero.name === name)
+}
+
 type GroupKey = string | number | symbol;
 
 export function customGroupBy<T, K extends GroupKey>(array: T[], keyFn: (item: T) => K): Record<K, T[]> {
@@ -402,27 +423,9 @@ export function generateFormations(heroes: Hero[]): Hero[][] {
 
     const remainingHeroes: Hero[] = heroes
 
-    const rally: Hero[] = []
-    
-    remainingHeroes.filter(hero => hero.isRallyHero).sort((heroA, heroB) => heroA.rallyHeroRank! - heroB.rallyHeroRank!).forEach(hero => {
-        if (rally.length < 3 && !rally.some(rallyHero => rallyHero.class === hero.class)) {
-            if (hero.stars && hero.rallyHeroRequiredStars && hero.stars >= hero.rallyHeroRequiredStars) {
-                return
-            }
-            rally.push(hero)
-        }
-    });
-
-    if (rally.length != 3) {
-        remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroA.rank - heroB.rank).forEach(hero => {
-            if (rally.length < 3 && !rally.some(rallyHero => rallyHero.class === hero.class)) {
-                rally.push(hero)
-            }
-        })
-    }
+    const rally = getBestRallyHeroes(remainingHeroes)
 
     rally.forEach(hero => remainingHeroes.splice(remainingHeroes.indexOf(hero), 1))
-
 
     const normalFormations: Hero[][] = []
 
@@ -456,6 +459,68 @@ export function generateFormations(heroes: Hero[]): Hero[][] {
     
 
     return [rally, ...normalFormations]
+}
+
+function getBestRallyHeroes(remainingHeroes: Hero[]) {
+    const rallyFormation: Hero[] = []
+
+    const bestInfantryHero = getBestInfantryRallyHero(remainingHeroes)
+    if (bestInfantryHero) {
+        rallyFormation.push(bestInfantryHero)
+        remainingHeroes.splice(remainingHeroes.indexOf(bestInfantryHero), 1)
+    }
+    const infantryLeaderHero = remainingHeroes.sort((heroA, heroB) => heroA.leaderRank! - heroB.leaderRank!).find(hero => hero.isLeader && hero.class == HeroClass.INFANTRY)
+    if (infantryLeaderHero) {
+        rallyFormation.push(infantryLeaderHero)
+        remainingHeroes.splice(remainingHeroes.indexOf(infantryLeaderHero), 1)
+    }
+
+
+    // fill up with leader heroes
+    remainingHeroes.filter(hero => hero.isRallyHero).sort((heroA, heroB) => heroA.rallyHeroRank! - heroB.rallyHeroRank!).forEach(hero => {
+        if (rallyFormation.length < 3 && !rallyFormation.some(rallyHero => rallyHero.class === hero.class)) {
+            if (hero.stars && hero.rallyHeroRequiredStars && hero.stars >= hero.rallyHeroRequiredStars) {
+                return
+            }
+            rallyFormation.push(hero)
+        }
+    });
+
+    // fill up with normal heroes
+    if (rallyFormation.length != 3) {
+        remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroA.rank - heroB.rank).forEach(hero => {
+            if (rallyFormation.length < 3 && !rallyFormation.some(rallyHero => rallyHero.class === hero.class)) {
+                rallyFormation.push(hero)
+            }
+        })
+    }
+
+    return rallyFormation
+}
+
+const getBestInfantryRallyHero = (heroes: Hero[]) => {
+    const jeronimo = findByName("Jeronimo", heroes)
+    const hector = findByName("Hector", heroes)
+    if (!jeronimo && hector) return hector
+    if (jeronimo && !hector) return jeronimo
+    if (!(jeronimo && hector)) {
+        return undefined // TODO: best other hero
+    }
+    if (!jeronimo.stars && hector.stars) return hector
+    if (jeronimo.stars && !hector.stars) return jeronimo
+    if (!(jeronimo.stars && hector.stars)) {
+        return undefined // TODO: best other hero
+    }
+    if (jeronimo.stars > 3) {
+        return jeronimo
+    }
+    if (hector.stars && hector.stars === 5) {
+        return hector
+    }
+    if (jeronimo.stars + 2 < (hector.stars || 0)) {
+        return hector
+    }
+    return jeronimo
 }
 
 /*export function getClassImage(class: HeroClass): string {
