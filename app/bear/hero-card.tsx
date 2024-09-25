@@ -41,7 +41,7 @@ export default function HeroCard({
 
     return (
         <Card
-            className={`flex flex-col sm:flex-row overflow-hidden transition-all duration-300 ${isSelected ? 'ring-2 ring-white' : 'ring-1 ring-border'
+            className={`flex flex-col sm:flex-row overflow-hidden transition-all duration-300 ${isSelected ? 'ring-2 ring-black dark:ring-white' : 'ring-1 ring-border'
                 }`}
             key={hero.name}
             onClick={handleCardClick}
