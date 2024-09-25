@@ -56,20 +56,20 @@ export default function MainRallySelection({
             </div>
 
             {mainRallyHeroes && <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-4">
-                <div className="flex flex-col gap-4">
-                    <h2>Infantry</h2>
+                <div className="flex flex-col gap-4 mb-4">
+                    <h2 className="text-2xl">Infantry</h2>
                     {filterHeroesByClassAndSortByRecommended(HeroClass.INFANTRY).map(hero => (
                         <HeroCard key={hero.name} hero={hero} isSelected={mainRallyHeroes.includes(hero)} onHeroSelection={changeSelection} isRecommended={recommendedRallyHeroes?.includes(hero)} />
                     ))}
                 </div>
-                <div className="flex flex-col gap-4">
-                    <h2>Lancer</h2>
+                <div className="flex flex-col gap-4 mb-4">
+                    <h2 className="text-2xl">Lancer</h2>
                     {filterHeroesByClassAndSortByRecommended(HeroClass.LANCER).map(hero => (
                         <HeroCard key={hero.name} hero={hero} isSelected={mainRallyHeroes.includes(hero)} onHeroSelection={changeSelection} isRecommended={recommendedRallyHeroes?.includes(hero)} />
                     ))}
                 </div>
-                <div className="flex flex-col gap-4">
-                    <h2>Marksmen</h2>
+                <div className="flex flex-col gap-4 mb-4">
+                    <h2 className="text-2xl">Marksmen</h2>
                     {filterHeroesByClassAndSortByRecommended(HeroClass.MARKSMEN).map(hero => (
                         <HeroCard key={hero.name} hero={hero} isSelected={mainRallyHeroes.includes(hero)} onHeroSelection={changeSelection} isRecommended={recommendedRallyHeroes?.includes(hero)} />
                     ))}
