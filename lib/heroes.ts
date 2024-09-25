@@ -62,6 +62,8 @@ export const HEROES: Hero[] = [
     {
         name: "Sergey",
         class: HeroClass.INFANTRY,
+        isRallyHero: true,
+        rallyHeroRank: 4,
         rank: 10,
         gen: 0,
         rarity: HeroRarity.EPIC
@@ -106,6 +108,8 @@ export const HEROES: Hero[] = [
     {
         name: "Bahiti",
         class: HeroClass.MARKSMEN,
+        isRallyHero: true,
+        rallyHeroRank: 6,
         rank: 10,
         gen: 0,
         rarity: HeroRarity.EPIC
@@ -136,6 +140,8 @@ export const HEROES: Hero[] = [
     {
         name: "Natalia",
         class: HeroClass.INFANTRY,
+        isRallyHero: true,
+        rallyHeroRank: 3,
         rank: 10,
         gen: 1,
         rarity: HeroRarity.LEGENDARY
@@ -155,6 +161,8 @@ export const HEROES: Hero[] = [
     {
         name: "Molly",
         class: HeroClass.LANCER,
+        isRallyHero: true,
+        rallyHeroRank: 4,
         rank: 10,
         gen: 1,
         rarity: HeroRarity.LEGENDARY
@@ -170,6 +178,8 @@ export const HEROES: Hero[] = [
     {
         name: "Flint",
         class: HeroClass.INFANTRY,
+        isRallyHero: true,
+        rallyHeroRank: 5,
         rank: 10,
         gen: 2,
         rarity: HeroRarity.LEGENDARY
@@ -177,6 +187,8 @@ export const HEROES: Hero[] = [
     {
         name: "Philly",
         class: HeroClass.LANCER,
+        isRallyHero: true,
+        rallyHeroRank: 3,
         isLeader: true,
         leaderRank: 2,
         rank: 10,
@@ -187,7 +199,7 @@ export const HEROES: Hero[] = [
         name: "Alonso",
         class: HeroClass.MARKSMEN,
         isRallyHero: true,
-        rallyHeroRank: 2,
+        rallyHeroRank: 5,
         rank: 10,
         gen: 2,
         rarity: HeroRarity.LEGENDARY
@@ -240,6 +252,8 @@ export const HEROES: Hero[] = [
     {
         name: "Lynn",
         class: HeroClass.MARKSMEN,
+        isRallyHero: true,
+        rallyHeroRank: 4,
         isLeader: true,
         leaderRank: 2,
         rank: 10,
@@ -280,6 +294,8 @@ export const HEROES: Hero[] = [
     {
         name: "Gwen",
         class: HeroClass.MARKSMEN,
+        isRallyHero: true,
+        rallyHeroRank: 3,
         isLeader: true,
         leaderRank: 2,
         rank: 10,
@@ -298,7 +314,7 @@ export const HEROES: Hero[] = [
         name: "Renee",
         class: HeroClass.LANCER,
         isRallyHero: true,
-        rallyHeroRank: 1,
+        rallyHeroRank: 3,
         rank: 10,
         gen: 6,
         rarity: HeroRarity.LEGENDARY
@@ -338,7 +354,7 @@ export const HEROES: Hero[] = [
         gen: 7,
         rarity: HeroRarity.LEGENDARY
     },
-    
+
     {
         name: "Gatot",
         class: HeroClass.INFANTRY,
@@ -349,6 +365,8 @@ export const HEROES: Hero[] = [
     {
         name: "Sonya",
         class: HeroClass.LANCER,
+        isRallyHero: true,
+        rallyHeroRank: 2,
         rank: 10,
         gen: 8,
         rarity: HeroRarity.LEGENDARY
@@ -360,7 +378,7 @@ export const HEROES: Hero[] = [
         gen: 8,
         rarity: HeroRarity.LEGENDARY
     },
-        
+
     {
         name: "Magnus",
         class: HeroClass.INFANTRY,
@@ -407,21 +425,21 @@ const findByName = (name: string, heroes: Hero[]): Hero | undefined => {
 type GroupKey = string | number | symbol;
 
 export function customGroupBy<T, K extends GroupKey>(array: T[], keyFn: (item: T) => K): Record<K, T[]> {
-  return array.reduce((result: Record<K, T[]>, item: T) => {
-    const key = keyFn(item);
-    if (!result[key]) {
-      result[key] = [];
-    }
-    result[key].push(item);
-    return result;
-  }, {} as Record<K, T[]>);
+    return array.reduce((result: Record<K, T[]>, item: T) => {
+        const key = keyFn(item);
+        if (!result[key]) {
+            result[key] = [];
+        }
+        result[key].push(item);
+        return result;
+    }, {} as Record<K, T[]>);
 }
 
-export function generateFormations(heroes: Hero[]): Hero[][] {
+export function generateFormations(heroes: Hero[], mainRallyHeroes?: Hero[]): Hero[][] {
 
     const remainingHeroes: Hero[] = heroes
 
-    const rally = getBestRallyHeroes(remainingHeroes)
+    const rally = mainRallyHeroes ?? getBestRallyHeroes(remainingHeroes)
 
     rally.forEach(hero => remainingHeroes.splice(remainingHeroes.indexOf(hero), 1))
 
@@ -454,12 +472,20 @@ export function generateFormations(heroes: Hero[]): Hero[][] {
         });
         normalFormations[i].slice(1).forEach(hero => remainingHeroes.splice(remainingHeroes.indexOf(hero), 1))
     })
-    
 
-    return [rally, ...normalFormations]
+
+    // Optional: Sort by class
+    // const classOrder: HeroClass[] = [HeroClass.INFANTRY, HeroClass.LANCER, HeroClass.MARKSMEN];
+    return [rally, ...normalFormations]/*.map(formation =>
+        formation.sort((a, b) => {
+            const indexA = classOrder.indexOf(a.class);
+            const indexB = classOrder.indexOf(b.class);
+            return indexA - indexB;
+        })
+    )*/
 }
 
-function getBestRallyHeroes(remainingHeroes: Hero[]) {
+export function getBestRallyHeroes(remainingHeroes: Hero[]) {
     const rallyFormation: Hero[] = []
 
     const bestInfantryHero = getBestInfantryRallyHero(remainingHeroes)
@@ -467,11 +493,14 @@ function getBestRallyHeroes(remainingHeroes: Hero[]) {
         rallyFormation.push(bestInfantryHero)
         remainingHeroes.splice(remainingHeroes.indexOf(bestInfantryHero), 1)
     }
-    const infantryLeaderHero = remainingHeroes.sort((heroA, heroB) => heroA.leaderRank! - heroB.leaderRank!).find(hero => hero.isLeader && hero.class == HeroClass.INFANTRY)
-    if (infantryLeaderHero) {
-        rallyFormation.push(infantryLeaderHero)
-        remainingHeroes.splice(remainingHeroes.indexOf(infantryLeaderHero), 1)
+    if (!bestInfantryHero) {
+        const infantryLeaderHero = remainingHeroes.sort((heroA, heroB) => heroA.leaderRank! - heroB.leaderRank!).find(hero => hero.isLeader && hero.class == HeroClass.INFANTRY)
+        if (infantryLeaderHero) {
+            rallyFormation.push(infantryLeaderHero)
+            remainingHeroes.splice(remainingHeroes.indexOf(infantryLeaderHero), 1)
+        }
     }
+
 
 
     // fill up with leader heroes

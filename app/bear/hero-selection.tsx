@@ -10,7 +10,7 @@ interface HeroSelectionProps {
     onHeroSelection: (hero: Hero) => void,
     onHeroStarSelection: (hero: Hero, stars: number) => void,
     resetAll: () => void,
-    onNextPage: () => void
+    onPageChange: (indexChange: number) => void
 }
 
 export default function HeroSelection({
@@ -19,7 +19,7 @@ export default function HeroSelection({
     onHeroSelection,
     onHeroStarSelection,
     resetAll,
-    onNextPage
+    onPageChange
 }: HeroSelectionProps) {
 
     function toggleAll() {
@@ -33,7 +33,8 @@ export default function HeroSelection({
     }
 
     function areAllHeroesSelected(): boolean {
-        return heroes.every(hero => selectedHeroes.has(hero))
+        const selectedHeroesArray = Array.from(selectedHeroes.values())
+        return heroes.every(hero => selectedHeroesArray.find(selectedHero => selectedHero.name === hero.name))
     }
 
     return (
@@ -42,9 +43,10 @@ export default function HeroSelection({
                 Heroes
             </h1>
             
-            <div>
-                <Button onClick={toggleAll}>{areAllHeroesSelected() ? 'Deselect' : 'Select'} All</Button>
-                <Button className="float-right" onClick={onNextPage}>Next</Button>
+            <div className="flex justify-between items-center w-full mt-6">
+            <Button onClick={() => onPageChange(-1)}>Back</Button>
+            <Button onClick={toggleAll}>{areAllHeroesSelected() ? 'Deselect' : 'Select'} All</Button>
+                <Button onClick={() => onPageChange(1)}>Next</Button>
             </div>
 
             {Object.entries(customGroupBy(heroes, ({ gen }) => gen)).map(([gen, heroes]) =>

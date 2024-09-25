@@ -4,23 +4,38 @@ import { Hero, HEROES } from "@/lib/heroes"
 import { useEffect, useState } from "react"
 import HeroSelection from "./hero-selection"
 import FormationGenerator from "./formation-generator"
+import MainRallySelection from "./main-rally-selection"
+import { useRouter } from "next/navigation"
 
 const storageKey = "selectedHeroes"
 
 export default function BearFormation() {
 
     const [selectedHeroes, setSelectedHeroes] = useState<Set<Hero>>(new Set<Hero>())
+    const [mainRallyHeroes, setMainRallyHeroes] = useState<Hero[]>([])
     const [pageIndex, setPageIndex] = useState<number>(0)
+
+    const router = useRouter()
 
     useEffect(() => {
         const storedData = localStorage.getItem(storageKey)
         if (storedData) {
-            setSelectedHeroes(new Set(JSON.parse(storedData)))
+            const parsedHeroes = JSON.parse(storedData) as Hero[]
+            const selectedHeroes = parsedHeroes.map(storedHero => {
+                const hero = HEROES.find(hero => storedHero.name === hero.name )
+                if (!hero) {
+                    console.warn("Couldn't map hero with name \"" + storedHero.name + "\"")
+                    return undefined
+                }
+                hero.stars = storedHero.stars
+                return hero
+            }).filter(hero => !!hero)
+            setSelectedHeroes(new Set(selectedHeroes))
+            //setSelectedHeroes(new Set(JSON.parse(storedData)))
         }
     }, [])
 
     function onHeroClick(hero: Hero) {
-        console.log(hero)
         if (Array.from(selectedHeroes).find(currentHero => currentHero.name == hero.name)) {
             const newHeroes = new Set(selectedHeroes)
             const selectedHero = Array.from(selectedHeroes.values()).find(value => value.name == hero.name)
@@ -32,10 +47,7 @@ export default function BearFormation() {
             localStorage.setItem(storageKey, JSON.stringify(Array.from(newHeroes)))
         } else {
             setSelectedHeroes(current => {
-                console.log(current)
-                console.log(hero)
                 const newHeroes = new Set(current).add(hero)
-                console.log(newHeroes)
                 localStorage.setItem(storageKey, JSON.stringify(Array.from(newHeroes)))
                 return newHeroes
             })
@@ -45,8 +57,6 @@ export default function BearFormation() {
     function onHeroStarSelection(hero: Hero, stars: number) {
         setSelectedHeroes(current => {
             const newHeroes = new Set(selectedHeroes)
-            console.log(hero.name)
-            console.log(Array.from(current.values()))
             let newHero = Array.from(current.values()).find(value => value.name == hero.name)
             if (newHero) {
                 newHeroes.delete(newHero)
@@ -65,13 +75,24 @@ export default function BearFormation() {
         localStorage.setItem(storageKey, JSON.stringify([]))
     }
 
+    function onPageChange(indexChange: number) {
+        if (pageIndex + indexChange < 0) {
+            router.push("/")
+        } else {
+            setPageIndex(pageIndex + indexChange)
+        }
+    }
+
     return (
         <div>
             {pageIndex == 0 &&
-                <HeroSelection heroes={HEROES} onHeroSelection={onHeroClick} selectedHeroes={selectedHeroes} resetAll={resetAll} onNextPage={() => setPageIndex(pageIndex + 1)} onHeroStarSelection={onHeroStarSelection}></HeroSelection>
+                <HeroSelection heroes={HEROES} onHeroSelection={onHeroClick} selectedHeroes={selectedHeroes} resetAll={resetAll} onPageChange={onPageChange} onHeroStarSelection={onHeroStarSelection}></HeroSelection>
             }
             {pageIndex == 1 &&
-                <FormationGenerator heroes={HEROES} selectedHeroes={selectedHeroes}></FormationGenerator>
+                <MainRallySelection selectedHeroes={selectedHeroes} onMainRallySelection={(heroes) => setMainRallyHeroes(heroes)} onPageChange={onPageChange}></MainRallySelection>
+            }
+            {pageIndex == 2 &&
+                <FormationGenerator heroes={HEROES} selectedHeroes={selectedHeroes} mainRallyHeroes={mainRallyHeroes} onPageChange={onPageChange}></FormationGenerator>
             }
         </div>
     )
