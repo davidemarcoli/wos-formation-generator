@@ -227,7 +227,7 @@ export const HEROES: Hero[] = [
         name: "Greg",
         class: HeroClass.MARKSMEN,
         isLeader: true,
-        leaderRank: 2,
+        leaderRank: 3,
         rank: 10,
         gen: 3,
         rarity: HeroRarity.LEGENDARY
@@ -473,16 +473,7 @@ export function generateFormations(heroes: Hero[], mainRallyHeroes?: Hero[]): He
         normalFormations[i].slice(1).forEach(hero => remainingHeroes.splice(remainingHeroes.indexOf(hero), 1))
     })
 
-
-    // Optional: Sort by class
-    // const classOrder: HeroClass[] = [HeroClass.INFANTRY, HeroClass.LANCER, HeroClass.MARKSMEN];
-    return [rally, ...normalFormations]/*.map(formation =>
-        formation.sort((a, b) => {
-            const indexA = classOrder.indexOf(a.class);
-            const indexB = classOrder.indexOf(b.class);
-            return indexA - indexB;
-        })
-    )*/
+    return [rally, ...normalFormations]
 }
 
 export function getBestRallyHeroes(remainingHeroes: Hero[]) {
@@ -494,13 +485,38 @@ export function getBestRallyHeroes(remainingHeroes: Hero[]) {
         remainingHeroes.splice(remainingHeroes.indexOf(bestInfantryHero), 1)
     }
     if (!bestInfantryHero) {
-        const infantryLeaderHero = remainingHeroes.sort((heroA, heroB) => heroA.leaderRank! - heroB.leaderRank!).find(hero => hero.isLeader && hero.class == HeroClass.INFANTRY)
+        const infantryLeaderHero = remainingHeroes.sort((heroA, heroB) => (heroA.rallyHeroRank || 0) - (heroB.rallyHeroRank || 0)).find(hero => hero.isRallyHero && hero.class == HeroClass.INFANTRY)
         if (infantryLeaderHero) {
             rallyFormation.push(infantryLeaderHero)
             remainingHeroes.splice(remainingHeroes.indexOf(infantryLeaderHero), 1)
         }
     }
 
+    const bestLancerHero = getBestLancerRallyHero(remainingHeroes)
+    if (bestLancerHero) {
+        rallyFormation.push(bestLancerHero)
+        remainingHeroes.splice(remainingHeroes.indexOf(bestLancerHero), 1)
+    }
+    if (!bestLancerHero) {
+        const lancerLeaderHero = remainingHeroes.sort((heroA, heroB) => (heroA.rallyHeroRank || 0) - (heroB.rallyHeroRank || 0)).find(hero => hero.isRallyHero && hero.class == HeroClass.LANCER)
+        if (lancerLeaderHero) {
+            rallyFormation.push(lancerLeaderHero)
+            remainingHeroes.splice(remainingHeroes.indexOf(lancerLeaderHero), 1)
+        }
+    }
+
+    const bestMarksmenHero = getBestMarksmenRallyHero(remainingHeroes)
+    if (bestMarksmenHero) {
+        rallyFormation.push(bestMarksmenHero)
+        remainingHeroes.splice(remainingHeroes.indexOf(bestMarksmenHero), 1)
+    }
+    if (!bestMarksmenHero) {
+        const marksmenLeaderHero = remainingHeroes.sort((heroA, heroB) => (heroA.rallyHeroRank || 0) - (heroB.rallyHeroRank || 0)).find(hero => hero.isRallyHero && hero.class == HeroClass.MARKSMEN)
+        if (marksmenLeaderHero) {
+            rallyFormation.push(marksmenLeaderHero)
+            remainingHeroes.splice(remainingHeroes.indexOf(marksmenLeaderHero), 1)
+        }
+    }
 
 
     // fill up with leader heroes
@@ -550,6 +566,32 @@ const getBestInfantryRallyHero = (heroes: Hero[]) => {
     return jeronimo
 }
 
-/*export function getClassImage(class: HeroClass): string {
-    return "fjdks"
-}*/
+const getBestLancerRallyHero = (heroes: Hero[]) => {
+    const sonya = findByName("Sonya", heroes)
+    const mia = findByName("Mia", heroes)
+    if (!sonya && mia) return mia
+    if (sonya && !mia) return sonya
+    if (!(sonya && mia)) {
+        return undefined // TODO: best other hero
+    }
+    if (!sonya.stars && mia.stars) return mia
+    if (sonya.stars && !mia.stars) return sonya
+    if (!(sonya.stars && mia.stars)) {
+        return undefined // TODO: best other hero
+    }
+    if (sonya.stars > 3) {
+        return sonya
+    }
+    if (mia.stars && mia.stars === 5) {
+        return mia
+    }
+    if (sonya.stars + 2 < (mia.stars || 0)) {
+        return mia
+    }
+    return sonya
+}
+
+const getBestMarksmenRallyHero = (heroes: Hero[]) => {
+    heroes
+    return undefined
+}

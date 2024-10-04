@@ -47,7 +47,7 @@ export default function HeroCard({
             onClick={handleCardClick}
         >
             <div className="p-4 sm:p-6 flex flex-col justify-between flex-grow">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2 mb-0">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
                     <div className="flex items-center gap-2">
                         <CardTitle className="text-lg sm:text-xl">
                             {hero.name}

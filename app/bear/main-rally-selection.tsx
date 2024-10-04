@@ -22,6 +22,7 @@ export default function MainRallySelection({
 
     useEffect(() => {
         const recommendedRallyHeroes = getBestRallyHeroes(Array.from(selectedHeroes))
+        console.log(recommendedRallyHeroes)
         setRecommendedRallyHeroes(recommendedRallyHeroes)
         setMainRallyHeroes(recommendedRallyHeroes)
     }, [selectedHeroes])
@@ -36,11 +37,11 @@ export default function MainRallySelection({
     }, [mainRallyHeroes])
 
     function filterHeroesByClassAndSortByRecommended(heroClass: HeroClass) {
-        if (heroClass == HeroClass.INFANTRY) {
-            console.log(Array.from(selectedHeroes).find(hero => hero.name == "Hector"))
-            console.log(Array.from(selectedHeroes).filter(hero => hero.isRallyHero).find(hero => hero.name == "Hector"))
-            console.log(Array.from(selectedHeroes).filter(hero => hero.isRallyHero).sort((hero) => recommendedRallyHeroes?.includes(hero) ? -1 : 1).find(hero => hero.name == "Hector"))
-        }
+        // if (heroClass == HeroClass.INFANTRY) {
+        //     console.log(Array.from(selectedHeroes).find(hero => hero.name == "Hector"))
+        //     console.log(Array.from(selectedHeroes).filter(hero => hero.isRallyHero).find(hero => hero.name == "Hector"))
+        //     console.log(Array.from(selectedHeroes).filter(hero => hero.isRallyHero).sort((hero) => recommendedRallyHeroes?.includes(hero) ? -1 : 1).find(hero => hero.name == "Hector"))
+        // }
         return Array.from(selectedHeroes).filter(hero => hero.class === heroClass && hero.isRallyHero).sort((hero) => recommendedRallyHeroes?.includes(hero) ? -1 : 1)
     }
 
@@ -49,6 +50,13 @@ export default function MainRallySelection({
             <h1 className="text-4xl text-center">
                 Pick your main rally
             </h1>
+
+            {/* <p className="mt-6">
+                Infantry: Jeronimo 4 Stars is better than Hector 5 Stars<br/>
+                Lancer: Sonya 4 Stars is better than Mia, Sonya = Mia = Renee<br/>
+                Marksmen: <br/><br/>
+                You can pick your main rally here!
+            </p> */}
 
             <div className="mt-6">
                 <Button className="float-left" onClick={() => onPageChange(-1)}>Previous</Button>
