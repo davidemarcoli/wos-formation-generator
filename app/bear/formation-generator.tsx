@@ -38,25 +38,31 @@ export default function FormationGenerator({
 
             {formations?.map((formation, index) =>
                 <div key={'formation' + index}>
-                    <h2 className="text-2xl mt-12">Formation {index + 1} <span className="text-sm">(5%<Image
-                        alt="hero-class"
-                        src={getClassImage(HeroClass.INFANTRY)}
-                        width={25}
-                        height={25}
-                        className="w-5 h-5 object-contain inline"
-                    />/5%<Image
-                            alt="hero-class"
-                            src={getClassImage(HeroClass.LANCER)}
-                            width={25}
-                            height={25}
-                            className="w-5 h-5 object-contain inline"
-                        />/90%<Image
-                            alt="hero-class"
-                            src={getClassImage(HeroClass.MARKSMEN)}
-                            width={25}
-                            height={25}
-                            className="w-5 h-5 object-contain inline"
-                        />)</span></h2>
+                    <h2 className="text-2xl mt-12">
+                        {index == 0 ? <span>Main Rally Formation</span> : <span>Joiner Formation {index}</span>}
+                        {' '}
+                        <span className="text-sm whitespace-nowrap">
+                            (5%<Image
+                                alt="hero-class"
+                                src={getClassImage(HeroClass.INFANTRY)}
+                                width={25}
+                                height={25}
+                                className="w-5 h-5 object-contain inline"
+                            />/5%<Image
+                                alt="hero-class"
+                                src={getClassImage(HeroClass.LANCER)}
+                                width={25}
+                                height={25}
+                                className="w-5 h-5 object-contain inline"
+                            />/90%<Image
+                                alt="hero-class"
+                                src={getClassImage(HeroClass.MARKSMEN)}
+                                width={25}
+                                height={25}
+                                className="w-5 h-5 object-contain inline"
+                            />)
+                        </span>
+                    </h2>
 
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-4">
                         {formation.map(hero =>
