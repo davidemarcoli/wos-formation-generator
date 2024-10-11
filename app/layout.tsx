@@ -39,7 +39,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <Script src="https://umami.homelab.davidemarcoli.dev/script.js" data-website-id="2f46cad8-357b-4ca4-bee0-d7e15e341c34"/>
+        {process.env.NODE_ENV === "production" && (
+          <Script src="https://umami.homelab.davidemarcoli.dev/script.js" data-website-id="2f46cad8-357b-4ca4-bee0-d7e15e341c34"/>
+        )}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
