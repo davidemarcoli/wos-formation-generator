@@ -30,6 +30,7 @@ export default function MainRallySelection({
     function changeSelection(selectedHero: Hero) {
         const filteredArray = mainRallyHeroes?.filter(hero => hero.class !== selectedHero.class) || []
         setMainRallyHeroes([...filteredArray, selectedHero])
+        window.umami.track("Select different Main Hero")
     }
 
     useEffect(() => {
@@ -59,8 +60,8 @@ export default function MainRallySelection({
             </p> */}
 
             <div className="mt-6">
-                <Button className="float-left" onClick={() => onPageChange(-1)}>Previous</Button>
-                <Button className="float-right" onClick={() => onPageChange(1)}>Next</Button>
+                <Button className="float-left" onClick={() => onPageChange(-1)} data-umami-event="Navigate back">Previous</Button>
+                <Button className="float-right" onClick={() => onPageChange(1)} data-umami-event="Navigate forward">Next</Button>
             </div>
 
             {mainRallyHeroes && <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-4">

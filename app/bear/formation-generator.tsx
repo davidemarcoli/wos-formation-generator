@@ -33,7 +33,7 @@ export default function FormationGenerator({
             </h1>
 
             <div className="mt-6">
-                <Button className="float-left" onClick={() => onPageChange(-1)}>Previous</Button>
+                <Button className="float-left" onClick={() => onPageChange(-1)} data-umami-event="Navigate back">Previous</Button>
             </div>
 
             {formations?.map((formation, index) =>

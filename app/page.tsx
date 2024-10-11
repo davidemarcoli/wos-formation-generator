@@ -18,7 +18,7 @@ export default function Home() {
             </CardHeader>
             <CardFooter>
               <a href="/bear">
-                <Button>Go to tool</Button>
+                <Button data-umami-event="Navigate to Bear Formation Tool">Go to tool</Button>
               </a>
             </CardFooter>
           </Card>
@@ -29,6 +29,7 @@ export default function Home() {
             href="https://github.com/davidemarcoli/wos-formation-generator"
             target="_blank"
             rel="noopener noreferrer"
+            data-umami-event="View Source"
           >
             <Github />
             Source Code →

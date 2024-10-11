@@ -44,9 +44,9 @@ export default function HeroSelection({
             </h1>
             
             <div className="flex justify-between items-center w-full mt-6">
-            <Button onClick={() => onPageChange(-1)}>Back</Button>
-            <Button onClick={toggleAll}>{areAllHeroesSelected() ? 'Deselect' : 'Select'} All</Button>
-                <Button onClick={() => onPageChange(1)}>Next</Button>
+            <Button onClick={() => onPageChange(-1)} data-umami-event="Navigate back">Back</Button>
+            <Button onClick={toggleAll} data-umami-event="Select all Heroes">{areAllHeroesSelected() ? 'Deselect' : 'Select'} All</Button>
+            <Button onClick={() => onPageChange(1)} data-umami-event="Navigate forward">Next</Button>
             </div>
 
             {Object.entries(customGroupBy(heroes, ({ gen }) => gen)).map(([gen, heroes]) =>
