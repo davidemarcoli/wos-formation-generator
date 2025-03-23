@@ -44,7 +44,19 @@ export default function MainRallySelection({
         //     console.log(Array.from(selectedHeroes).filter(hero => hero.isRallyHero).find(hero => hero.name == "Hector"))
         //     console.log(Array.from(selectedHeroes).filter(hero => hero.isRallyHero).sort((hero) => recommendedRallyHeroes?.includes(hero) ? -1 : 1).find(hero => hero.name == "Hector"))
         // }
-        return Array.from(selectedHeroes).filter(hero => hero.class === heroClass && hero.isRallyHero).sort((hero) => recommendedMainRallyFormation?.heroes.includes(hero) ? -1 : 1)
+        return Array.from(selectedHeroes)
+            .filter(hero => hero.class === heroClass && hero.isRallyHero)
+            .sort((heroA, heroB) => {
+                // First sort by whether the hero is in recommendedMainRallyFormation
+                const isHeroAInRecommended = recommendedMainRallyFormation?.heroes.includes(heroA);
+                const isHeroBInRecommended = recommendedMainRallyFormation?.heroes.includes(heroB);
+
+                if (isHeroAInRecommended && !isHeroBInRecommended) return -1;
+                if (!isHeroAInRecommended && isHeroBInRecommended) return 1;
+
+                // Then sort by rallyHeroRank
+                return heroA.rallyHeroRank! - heroB.rallyHeroRank!;
+            });
     }
 
     return (
