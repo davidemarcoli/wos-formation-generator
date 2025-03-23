@@ -15,7 +15,18 @@ export function generateFormations(heroes: Hero[], mainRallyFormation?: Formatio
 
     const normalFormations: FormationWithRatio[] = []
 
-    const leaderHeroes = remainingHeroes.filter(hero => hero.isLeader).sort((heroA, heroB) => heroA.leaderRank! - heroB.leaderRank!)
+    const leaderHeroes = remainingHeroes.filter(hero => hero.isLeader)
+        .sort((heroA, heroB) => {
+            // First sort by whether stars requirement is met
+            const heroAMeetsStars = !heroA.stars || !heroA.leaderRequiredStars || heroA.stars >= heroA.leaderRequiredStars;
+            const heroBMeetsStars = !heroB.stars || !heroB.leaderRequiredStars || heroB.stars >= heroB.leaderRequiredStars;
+
+            if (heroAMeetsStars && !heroBMeetsStars) return -1;
+            if (!heroAMeetsStars && heroBMeetsStars) return 1;
+
+            // Then sort by rallyHeroRank
+            return heroA.leaderRank! - heroB.leaderRank!;
+        })
 
     // create n formations (6)
     leaderHeroes.slice(0, 6).forEach((hero, i) => {
@@ -24,7 +35,27 @@ export function generateFormations(heroes: Hero[], mainRallyFormation?: Formatio
     });
 
     if (leaderHeroes.length < 5) {
-        remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroA.rank - heroB.rank).forEach((hero, i) => {
+        remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => {
+            // First compare by generation
+            if (heroA.gen !== heroB.gen) {
+                return heroA.gen - heroB.gen; // Sort by generation (ascending)
+            }
+
+            // If generations are equal, compare by stars
+            // Handle undefined stars cases
+            if (heroA.stars !== undefined && heroB.stars !== undefined) {
+                // Both have stars defined, compare normally
+                return heroB.stars - heroA.stars; // Sort by stars (descending)
+            } else if (heroA.stars !== undefined) {
+                // Only heroA has stars defined, it should come first
+                return -1;
+            } else if (heroB.stars !== undefined) {
+                // Only heroB has stars defined, it should come first
+                return 1;
+            }
+            // If neither has stars defined or stars are equal, compare by rank
+            return heroA.rank - heroB.rank; // Sort by rank (ascending)
+        }).forEach((hero, i) => {
             if (leaderHeroes.length + i < 5) {
                 normalFormations.push({ heroes: [], troopRatio: [5, 5, 90] })
                 normalFormations[leaderHeroes.length + i].heroes.push(hero)
@@ -90,11 +121,18 @@ export function getBestRallyHeroes(remainingHeroes: Hero[]): FormationWithRatio 
 
 
     // fill up with leader heroes
-    remainingHeroes.filter(hero => hero.isRallyHero).sort((heroA, heroB) => heroA.rallyHeroRank! - heroB.rallyHeroRank!).forEach(hero => {
+    remainingHeroes.filter(hero => hero.isRallyHero).sort((heroA, heroB) => {
+        // First sort by whether stars requirement is met
+        const heroAMeetsStars = !heroA.stars || !heroA.rallyHeroRequiredStars || heroA.stars >= heroA.rallyHeroRequiredStars;
+        const heroBMeetsStars = !heroB.stars || !heroB.rallyHeroRequiredStars || heroB.stars >= heroB.rallyHeroRequiredStars;
+
+        if (heroAMeetsStars && !heroBMeetsStars) return -1;
+        if (!heroAMeetsStars && heroBMeetsStars) return 1;
+
+        // Then sort by rallyHeroRank
+        return heroA.rallyHeroRank! - heroB.rallyHeroRank!;
+    }).forEach(hero => {
         if (rallyFormation.length < 3 && !rallyFormation.some(rallyHero => rallyHero.class === hero.class)) {
-            if (hero.stars && hero.rallyHeroRequiredStars && hero.stars >= hero.rallyHeroRequiredStars) {
-                return
-            }
             rallyFormation.push(hero)
         }
     });

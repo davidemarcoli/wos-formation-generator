@@ -19,6 +19,7 @@ export type Hero = {
     rallyHeroRequiredStars?: number
     isLeader?: boolean
     leaderRank?: number
+    leaderRequiredStars?: number
     rank: number
     gen: number
     rarity: HeroRarity,
@@ -75,7 +76,8 @@ export const HEROES: Hero[] = [
         gen: 0,
         rarity: 1,
         isLeader: true,
-        leaderRank: 1
+        leaderRank: 1,
+        leaderRequiredStars: 4
     },
     {
         name: "Patrick",
@@ -117,7 +119,8 @@ export const HEROES: Hero[] = [
         gen: 0,
         rarity: 1,
         isRallyHero: true,
-        rallyHeroRank: 8
+        rallyHeroRank: 8,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Jasser",
@@ -127,7 +130,8 @@ export const HEROES: Hero[] = [
         gen: 0,
         rarity: 1,
         isLeader: true,
-        leaderRank: 1
+        leaderRank: 1,
+        leaderRequiredStars: 4
     },
     {
         name: "Seo-yoon",
@@ -137,7 +141,8 @@ export const HEROES: Hero[] = [
         gen: 0,
         rarity: 1,
         isLeader: true,
-        leaderRank: 1
+        leaderRank: 1,
+        leaderRequiredStars: 4
     },
     {
         name: "Natalia",
@@ -166,7 +171,8 @@ export const HEROES: Hero[] = [
         gen: 1,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 7
+        rallyHeroRank: 7,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Zinman",
@@ -184,7 +190,8 @@ export const HEROES: Hero[] = [
         gen: 2,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 3
+        rallyHeroRank: 3,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Philly",
@@ -195,8 +202,10 @@ export const HEROES: Hero[] = [
         rarity: 2,
         isRallyHero: true,
         rallyHeroRank: 6,
+        rallyHeroRequiredStars: 4,
         isLeader: true,
-        leaderRank: 3
+        leaderRank: 3,
+        leaderRequiredStars: 4
     },
     {
         name: "Alonso",
@@ -206,7 +215,8 @@ export const HEROES: Hero[] = [
         gen: 2,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 7
+        rallyHeroRank: 7,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Logan",
@@ -224,7 +234,8 @@ export const HEROES: Hero[] = [
         gen: 3,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 1
+        rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Greg",
@@ -251,8 +262,10 @@ export const HEROES: Hero[] = [
         rarity: 2,
         isRallyHero: true,
         rallyHeroRank: 5,
+        rallyHeroRequiredStars: 4,
         isLeader: true,
-        leaderRank: 3
+        leaderRank: 3,
+        leaderRequiredStars: 4
     },
     {
         name: "Lynn",
@@ -262,7 +275,8 @@ export const HEROES: Hero[] = [
         gen: 4,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 6
+        rallyHeroRank: 6,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Hector",
@@ -273,6 +287,7 @@ export const HEROES: Hero[] = [
         rarity: 2,
         isRallyHero: true,
         rallyHeroRank: 2,
+        rallyHeroRequiredStars: 4,
         isBestRallyHero (remainingHeroes) {
             const jeronimo = remainingHeroes.find((hero)=>hero.name === "Jeronimo");
             if (!jeronimo || !jeronimo.stars) return true;
@@ -296,7 +311,8 @@ export const HEROES: Hero[] = [
         gen: 5,
         rarity: 2,
         isLeader: true,
-        leaderRank: 3
+        leaderRank: 3,
+        leaderRequiredStars: 4
     },
     {
         name: "Gwen",
@@ -307,8 +323,10 @@ export const HEROES: Hero[] = [
         rarity: 2,
         isRallyHero: true,
         rallyHeroRank: 5,
+        rallyHeroRequiredStars: 4,
         isLeader: true,
-        leaderRank: 2
+        leaderRank: 2,
+        leaderRequiredStars: 4
     },
     {
         name: "Wu Ming",
@@ -326,7 +344,8 @@ export const HEROES: Hero[] = [
         gen: 6,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 4
+        rallyHeroRank: 4,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Wayne",
@@ -336,7 +355,8 @@ export const HEROES: Hero[] = [
         gen: 6,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 4
+        rallyHeroRank: 4,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Edith",
@@ -354,7 +374,8 @@ export const HEROES: Hero[] = [
         gen: 7,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 3
+        rallyHeroRank: 3,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Bradley",
@@ -365,8 +386,10 @@ export const HEROES: Hero[] = [
         rarity: 2,
         isRallyHero: true,
         rallyHeroRank: 3,
+        rallyHeroRequiredStars: 4,
         isLeader: true,
-        leaderRank: 2
+        leaderRank: 2,
+        leaderRequiredStars: 4
     },
     {
         name: "Gatot",
@@ -384,7 +407,8 @@ export const HEROES: Hero[] = [
         gen: 8,
         rarity: 2,
         isLeader: true,
-        leaderRank: 2
+        leaderRank: 2,
+        leaderRequiredStars: 4
     },
     {
         name: "Hendrik",
@@ -402,7 +426,8 @@ export const HEROES: Hero[] = [
         gen: 9,
         rarity: 2,
         isLeader: true,
-        leaderRank: 2
+        leaderRank: 2,
+        leaderRequiredStars: 4
     },
     {
         name: "Fred",
@@ -412,7 +437,8 @@ export const HEROES: Hero[] = [
         gen: 9,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 2
+        rallyHeroRank: 2,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Xura",
@@ -422,23 +448,25 @@ export const HEROES: Hero[] = [
         gen: 9,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 2
+        rallyHeroRank: 2,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Gregory",
         class: 0,
         imagePath: "/2024/12/gregory350.jpg",
-        rank: 11,
+        rank: 10,
         gen: 10,
         rarity: 2,
         isLeader: true,
-        leaderRank: 3
+        leaderRank: 3,
+        leaderRequiredStars: 4
     },
     {
         name: "Freya",
         class: 1,
         imagePath: "/2024/12/freya350.jpg",
-        rank: 11,
+        rank: 10,
         gen: 10,
         rarity: 2
     },
@@ -446,13 +474,15 @@ export const HEROES: Hero[] = [
         name: "Blanchette",
         class: 2,
         imagePath: "/2024/12/blanchette350.jpg",
-        rank: 11,
+        rank: 10,
         gen: 10,
         rarity: 2,
         isRallyHero: true,
         rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4,
         isLeader: true,
-        leaderRank: 2
+        leaderRank: 2,
+        leaderRequiredStars: 4
     }
 ]
 
