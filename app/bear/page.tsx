@@ -6,13 +6,14 @@ import HeroSelection from "./hero-selection"
 import FormationGenerator from "./formation-generator"
 import MainRallySelection from "./main-rally-selection"
 import { useRouter } from "next/navigation"
+import { FormationWithRatio } from "@/lib/formation-generator"
 
 const storageKey = "selectedHeroes"
 
 export default function BearFormation() {
 
     const [selectedHeroes, setSelectedHeroes] = useState<Set<Hero>>(new Set<Hero>())
-    const [mainRallyHeroes, setMainRallyHeroes] = useState<Hero[]>([])
+    const [mainRallyFormation, setMainRallyFormation] = useState<FormationWithRatio>({heroes: [], troopRatio: []})
     const [pageIndex, setPageIndex] = useState<number>(0)
 
     const router = useRouter()
@@ -89,10 +90,10 @@ export default function BearFormation() {
                 <HeroSelection heroes={HEROES} onHeroSelection={onHeroClick} selectedHeroes={selectedHeroes} resetAll={resetAll} onPageChange={onPageChange} onHeroStarSelection={onHeroStarSelection}></HeroSelection>
             }
             {pageIndex == 1 &&
-                <MainRallySelection selectedHeroes={selectedHeroes} onMainRallySelection={(heroes) => setMainRallyHeroes(heroes)} onPageChange={onPageChange}></MainRallySelection>
+                <MainRallySelection selectedHeroes={selectedHeroes} onMainRallySelection={(heroes) => setMainRallyFormation(heroes)} onPageChange={onPageChange}></MainRallySelection>
             }
             {pageIndex == 2 &&
-                <FormationGenerator heroes={HEROES} selectedHeroes={selectedHeroes} mainRallyHeroes={mainRallyHeroes} onPageChange={onPageChange}></FormationGenerator>
+                <FormationGenerator selectedHeroes={selectedHeroes} mainRallyFormation={mainRallyFormation} onPageChange={onPageChange}></FormationGenerator>
             }
         </div>
     )

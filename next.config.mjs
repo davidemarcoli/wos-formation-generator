@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    images: {
+        remotePatterns: [
+            {
+                hostname: "www-cf.whiteoutsurvival.wiki",
+                protocol: "https",
+                pathname: "/wp-content/uploads/**",
+            }
+        ]
+    }
+};
 
 export default nextConfig;
