@@ -13,11 +13,13 @@ export enum HeroClass {
 export type Hero = {
     name: string
     class: HeroClass
+    imagePath?: string
     isRallyHero?: boolean
     rallyHeroRank?: number,
     rallyHeroRequiredStars?: number
     isLeader?: boolean
     leaderRank?: number
+    leaderRequiredStars?: number
     rank: number
     gen: number
     rarity: HeroRarity,
@@ -28,388 +30,473 @@ export type Hero = {
 export const HEROES: Hero[] = [
     {
         name: "Smith",
-        class: HeroClass.INFANTRY,
+        class: 0,
+        imagePath: "/2023/05/smith.png",
         rank: 100,
         gen: 0,
-        rarity: HeroRarity.RARE
+        rarity: 0
     },
     {
         name: "Eugene",
-        class: HeroClass.INFANTRY,
+        class: 0,
+        imagePath: "/2023/05/eugene.png",
         rank: 100,
         gen: 0,
-        rarity: HeroRarity.RARE
+        rarity: 0
     },
     {
         name: "Charlie",
-        class: HeroClass.LANCER,
+        class: 1,
+        imagePath: "/2023/05/charlie.png",
         rank: 100,
         gen: 0,
-        rarity: HeroRarity.RARE
+        rarity: 0
     },
     {
         name: "Cloris",
-        class: HeroClass.MARKSMEN,
+        class: 2,
+        imagePath: "/2023/05/cloris.png",
         rank: 100,
         gen: 0,
-        rarity: HeroRarity.RARE
+        rarity: 0
     },
-
-
-
-
-
     {
         name: "Sergey",
-        class: HeroClass.INFANTRY,
-        isRallyHero: true,
-        rallyHeroRank: 4,
+        class: 0,
+        imagePath: "/2023/05/sergey.png",
         rank: 10,
         gen: 0,
-        rarity: HeroRarity.EPIC
+        rarity: 1
     },
     {
         name: "Jessie",
-        class: HeroClass.LANCER,
-        isLeader: true,
-        leaderRank: 1,
+        class: 1,
+        imagePath: "/2023/05/jessie.png",
         rank: 10,
         gen: 0,
-        rarity: HeroRarity.EPIC
+        rarity: 1,
+        isLeader: true,
+        leaderRank: 1,
+        leaderRequiredStars: 4
     },
     {
         name: "Patrick",
-        class: HeroClass.LANCER,
+        class: 1,
+        imagePath: "/2023/05/patrick.png",
         rank: 10,
         gen: 0,
-        rarity: HeroRarity.EPIC
+        rarity: 1
     },
     {
         name: "Walis Bokan",
-        class: HeroClass.LANCER,
+        class: 1,
+        imagePath: "/2023/10/3.jpg",
         rank: 10,
         gen: 0,
-        rarity: HeroRarity.EPIC
+        rarity: 1
     },
     {
         name: "Ling Shuang",
-        class: HeroClass.LANCER,
+        class: 1,
+        imagePath: "/2024/12/凌雪350.jpg",
         rank: 10,
         gen: 0,
-        rarity: HeroRarity.EPIC
+        rarity: 1
     },
     {
         name: "Gina",
-        class: HeroClass.MARKSMEN,
+        class: 2,
+        imagePath: "/2023/05/Gina.png",
         rank: 10,
         gen: 0,
-        rarity: HeroRarity.EPIC
+        rarity: 1
     },
     {
         name: "Bahiti",
-        class: HeroClass.MARKSMEN,
-        isRallyHero: true,
-        rallyHeroRank: 6,
+        class: 2,
+        imagePath: "/2023/05/bahiti.png",
         rank: 10,
         gen: 0,
-        rarity: HeroRarity.EPIC
+        rarity: 1,
+        isRallyHero: true,
+        rallyHeroRank: 8,
+        rallyHeroRequiredStars: 4
     },
     {
         name: "Jasser",
-        class: HeroClass.MARKSMEN,
-        isLeader: true,
-        leaderRank: 1,
+        class: 2,
+        imagePath: "/2023/10/1.jpg",
         rank: 10,
         gen: 0,
-        rarity: HeroRarity.EPIC
+        rarity: 1,
+        isLeader: true,
+        leaderRank: 1,
+        leaderRequiredStars: 4
     },
     {
         name: "Seo-yoon",
-        class: HeroClass.MARKSMEN,
-        isLeader: true,
-        leaderRank: 1,
+        class: 2,
+        imagePath: "/2023/10/2.jpg",
         rank: 10,
         gen: 0,
-        rarity: HeroRarity.EPIC
+        rarity: 1,
+        isLeader: true,
+        leaderRank: 1,
+        leaderRequiredStars: 4
     },
-
-
-
-
-
     {
         name: "Natalia",
-        class: HeroClass.INFANTRY,
-        isRallyHero: true,
-        rallyHeroRank: 3,
+        class: 0,
+        imagePath: "/2023/05/natalia.png",
         rank: 10,
         gen: 1,
-        rarity: HeroRarity.LEGENDARY
+        rarity: 2
     },
     {
         name: "Jeronimo",
-        class: HeroClass.INFANTRY,
+        class: 0,
+        imagePath: "/2023/05/jeronimo.png",
+        rank: 10,
+        gen: 1,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Molly",
+        class: 1,
+        imagePath: "/2023/05/molly.png",
+        rank: 10,
+        gen: 1,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 7,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Zinman",
+        class: 2,
+        imagePath: "/2023/05/zinman.png",
+        rank: 10,
+        gen: 1,
+        rarity: 2
+    },
+    {
+        name: "Flint",
+        class: 0,
+        imagePath: "/2023/05/flint.png",
+        rank: 10,
+        gen: 2,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 3,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Philly",
+        class: 1,
+        imagePath: "/2023/05/philly.png",
+        rank: 10,
+        gen: 2,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 6,
+        rallyHeroRequiredStars: 4,
+        isLeader: true,
+        leaderRank: 3,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Alonso",
+        class: 2,
+        imagePath: "/2023/05/alonso.png",
+        rank: 10,
+        gen: 2,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 7,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Logan",
+        class: 0,
+        imagePath: "/2023/05/logan.png",
+        rank: 10,
+        gen: 3,
+        rarity: 2
+    },
+    {
+        name: "Mia",
+        class: 1,
+        imagePath: "/2023/05/mia.png",
+        rank: 10,
+        gen: 3,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Greg",
+        class: 2,
+        imagePath: "/2023/05/greg.png",
+        rank: 10,
+        gen: 3,
+        rarity: 2
+    },
+    {
+        name: "Ahmose",
+        class: 0,
+        imagePath: "/2023/09/ahmos.png",
+        rank: 10,
+        gen: 4,
+        rarity: 2
+    },
+    {
+        name: "Reina",
+        class: 1,
+        imagePath: "/2023/09/1690429616516_7.jpg",
+        rank: 10,
+        gen: 4,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 5,
+        rallyHeroRequiredStars: 4,
+        isLeader: true,
+        leaderRank: 3,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Lynn",
+        class: 2,
+        imagePath: "/2023/09/1690429616507_5.jpg",
+        rank: 10,
+        gen: 4,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 6,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Hector",
+        class: 0,
+        imagePath: "/2023/09/1690429616489_3.jpg",
+        rank: 10,
+        gen: 5,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 2,
+        rallyHeroRequiredStars: 4,
+        isBestRallyHero (remainingHeroes) {
+            const jeronimo = remainingHeroes.find((hero)=>hero.name === "Jeronimo");
+            if (!jeronimo || !jeronimo.stars) return true;
+            if (jeronimo.stars > 3) {
+                return false;
+            }
+            if (this.stars && this.stars === 5) {
+                return true;
+            }
+            if (jeronimo.stars + 2 < (this.stars || 0)) {
+                return true;
+            }
+            return false;
+        }
+    },
+    {
+        name: "Norah",
+        class: 1,
+        imagePath: "/2023/09/1690429616480_2.jpg",
+        rank: 10,
+        gen: 5,
+        rarity: 2,
+        isLeader: true,
+        leaderRank: 3,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Gwen",
+        class: 2,
+        imagePath: "/2023/09/1690429616472_1.jpg",
+        rank: 10,
+        gen: 5,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 5,
+        rallyHeroRequiredStars: 4,
+        isLeader: true,
+        leaderRank: 2,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Wu Ming",
+        class: 0,
+        imagePath: "/2023/11/wuming.jpg",
+        rank: 10,
+        gen: 6,
+        rarity: 2
+    },
+    {
+        name: "Renee",
+        class: 1,
+        imagePath: "/2023/11/rene.jpg",
+        rank: 10,
+        gen: 6,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 4,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Wayne",
+        class: 2,
+        imagePath: "/2023/11/wayne.jpg",
+        rank: 10,
+        gen: 6,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 4,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Edith",
+        class: 0,
+        imagePath: "/2024/03/20240222_2.jpg",
+        rank: 10,
+        gen: 7,
+        rarity: 2
+    },
+    {
+        name: "Gordon",
+        class: 1,
+        imagePath: "/2024/03/20240222_1.jpg",
+        rank: 10,
+        gen: 7,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 3,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Bradley",
+        class: 2,
+        imagePath: "/2024/03/20240222_3.jpg",
+        rank: 10,
+        gen: 7,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 3,
+        rallyHeroRequiredStars: 4,
+        isLeader: true,
+        leaderRank: 2,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Gatot",
+        class: 0,
+        imagePath: "/2024/07/5.jpg",
+        rank: 10,
+        gen: 8,
+        rarity: 2
+    },
+    {
+        name: "Sonya",
+        class: 1,
+        imagePath: "/2024/07/6.jpg",
+        rank: 10,
+        gen: 8,
+        rarity: 2,
+        isLeader: true,
+        leaderRank: 2,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Hendrik",
+        class: 2,
+        imagePath: "/2024/07/7.jpg",
+        rank: 20,
+        gen: 8,
+        rarity: 2
+    },
+    {
+        name: "Magnus",
+        class: 0,
+        imagePath: "/2024/08/magnus.jpg",
+        rank: 10,
+        gen: 9,
+        rarity: 2,
+        isLeader: true,
+        leaderRank: 2,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Fred",
+        class: 1,
+        imagePath: "/2024/08/fred.jpg",
+        rank: 10,
+        gen: 9,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 2,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Xura",
+        class: 2,
+        imagePath: "/2024/08/xura.jpg",
+        rank: 10,
+        gen: 9,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 2,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Gregory",
+        class: 0,
+        imagePath: "/2024/12/gregory350.jpg",
+        rank: 10,
+        gen: 10,
+        rarity: 2,
+        isLeader: true,
+        leaderRank: 3,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Freya",
+        class: 1,
+        imagePath: "/2024/12/freya350.jpg",
+        rank: 10,
+        gen: 10,
+        rarity: 2
+    },
+    {
+        name: "Blanchette",
+        class: 2,
+        imagePath: "/2024/12/blanchette350.jpg",
+        rank: 10,
+        gen: 10,
+        rarity: 2,
         isRallyHero: true,
         rallyHeroRank: 1,
         rallyHeroRequiredStars: 4,
         isLeader: true,
-        leaderRank: 1,
-        rank: 10,
-        gen: 1,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Molly",
-        class: HeroClass.LANCER,
-        isRallyHero: true,
-        rallyHeroRank: 4,
-        rank: 10,
-        gen: 1,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Zinman",
-        class: HeroClass.MARKSMEN,
-        rank: 10,
-        gen: 1,
-        rarity: HeroRarity.LEGENDARY
-    },
-
-    {
-        name: "Flint",
-        class: HeroClass.INFANTRY,
-        isRallyHero: true,
-        rallyHeroRank: 5,
-        rank: 10,
-        gen: 2,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Philly",
-        class: HeroClass.LANCER,
-        isRallyHero: true,
-        rallyHeroRank: 3,
-        isLeader: true,
         leaderRank: 2,
-        rank: 10,
-        gen: 2,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Alonso",
-        class: HeroClass.MARKSMEN,
-        isRallyHero: true,
-        rallyHeroRank: 5,
-        rank: 10,
-        gen: 2,
-        rarity: HeroRarity.LEGENDARY
-    },
-
-    {
-        name: "Logan",
-        class: HeroClass.INFANTRY,
-        rank: 10,
-        gen: 3,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Mia",
-        class: HeroClass.LANCER,
-        isRallyHero: true,
-        rallyHeroRank: 1,
-        isLeader: true,
-        leaderRank: 2,
-        rank: 10,
-        gen: 3,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Greg",
-        class: HeroClass.MARKSMEN,
-        isLeader: true,
-        leaderRank: 3,
-        rank: 10,
-        gen: 3,
-        rarity: HeroRarity.LEGENDARY
-    },
-
-    {
-        name: "Ahmose",
-        class: HeroClass.INFANTRY,
-        rank: 10,
-        gen: 4,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Reina",
-        class: HeroClass.LANCER,
-        isLeader: true,
-        leaderRank: 2,
-        rank: 10,
-        gen: 4,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Lynn",
-        class: HeroClass.MARKSMEN,
-        isRallyHero: true,
-        rallyHeroRank: 4,
-        isLeader: true,
-        leaderRank: 2,
-        rank: 10,
-        gen: 4,
-        rarity: HeroRarity.LEGENDARY
-    },
-
-    {
-        name: "Hector",
-        class: HeroClass.INFANTRY,
-        isRallyHero: true,
-        rallyHeroRank: 2,
-        rank: 10,
-        gen: 5,
-        rarity: HeroRarity.LEGENDARY,
-        isBestRallyHero(remainingHeroes) {
-            const jeronimo = remainingHeroes.find((hero) => hero.name === "Jeronimo")
-            if (!jeronimo || !jeronimo.stars) return true
-            if (jeronimo.stars > 3) {
-                return false
-            }
-            if (this.stars && this.stars === 5) {
-                return true
-            }
-            if (jeronimo.stars + 2 < (this.stars || 0)) {
-                return true
-            }
-            return false
-        },
-    },
-    {
-        name: "Norah",
-        class: HeroClass.LANCER,
-        rank: 10,
-        gen: 5,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Gwen",
-        class: HeroClass.MARKSMEN,
-        isRallyHero: true,
-        rallyHeroRank: 3,
-        isLeader: true,
-        leaderRank: 2,
-        rank: 10,
-        gen: 5,
-        rarity: HeroRarity.LEGENDARY
-    },
-
-    {
-        name: "Wu Ming",
-        class: HeroClass.INFANTRY,
-        rank: 10,
-        gen: 6,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Renee",
-        class: HeroClass.LANCER,
-        isRallyHero: true,
-        rallyHeroRank: 3,
-        rank: 10,
-        gen: 6,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Wayne",
-        class: HeroClass.MARKSMEN,
-        isLeader: true,
-        leaderRank: 2,
-        rank: 10,
-        gen: 6,
-        rarity: HeroRarity.LEGENDARY
-    },
-
-    {
-        name: "Edith",
-        class: HeroClass.INFANTRY,
-        rank: 10,
-        gen: 7,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Gordon",
-        class: HeroClass.LANCER,
-        rank: 10,
-        gen: 7,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Bradley",
-        class: HeroClass.MARKSMEN,
-        isRallyHero: true,
-        rallyHeroRank: 1,
-        isLeader: true,
-        leaderRank: 1,
-        rank: 10,
-        gen: 7,
-        rarity: HeroRarity.LEGENDARY
-    },
-
-    {
-        name: "Gatot",
-        class: HeroClass.INFANTRY,
-        rank: 10,
-        gen: 8,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Sonya",
-        class: HeroClass.LANCER,
-        isRallyHero: true,
-        rallyHeroRank: 2,
-        rank: 10,
-        gen: 8,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Hendrik",
-        class: HeroClass.MARKSMEN,
-        rank: 20,
-        gen: 8,
-        rarity: HeroRarity.LEGENDARY
-    },
-
-    {
-        name: "Magnus",
-        class: HeroClass.INFANTRY,
-        rank: 10,
-        gen: 9,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Fred",
-        class: HeroClass.LANCER,
-        rank: 10,
-        gen: 9,
-        rarity: HeroRarity.LEGENDARY
-    },
-    {
-        name: "Xura",
-        class: HeroClass.MARKSMEN,
-        rank: 10,
-        gen: 9,
-        rarity: HeroRarity.LEGENDARY
-    },
+        leaderRequiredStars: 4
+    }
 ]
 
 export const getClassImage = (heroClass: HeroClass): string => {
     switch (heroClass) {
         case HeroClass.INFANTRY:
-            return "/images/heroes/classes/infantry.png"
+            return "https://www-cf.whiteoutsurvival.wiki/wp-content/uploads/2023/05/infantry.png"
+            // return "/images/heroes/classes/infantry.png"
         case HeroClass.LANCER:
-            return "/images/heroes/classes/lancer.png"
+            return "https://www-cf.whiteoutsurvival.wiki/wp-content/uploads/2023/05/lancer.png"
+        // return "/images/heroes/classes/lancer.png"
         case HeroClass.MARKSMEN:
-            return "/images/heroes/classes/marksman.png"
+            return "https://www-cf.whiteoutsurvival.wiki/wp-content/uploads/2023/05/marksman.png"
+            // return "/images/heroes/classes/marksman.png"
     }
 }
 
@@ -418,7 +505,7 @@ export const getHeroImage = (heroName: string): string => {
     return `/images/heroes/${cleanedName}.png`
 }
 
-const findByName = (name: string, heroes: Hero[]): Hero | undefined => {
+export const findByName = (name: string, heroes: Hero[]): Hero | undefined => {
     return heroes.find(hero => hero.name === name)
 }
 
@@ -433,165 +520,4 @@ export function customGroupBy<T, K extends GroupKey>(array: T[], keyFn: (item: T
         result[key].push(item);
         return result;
     }, {} as Record<K, T[]>);
-}
-
-export function generateFormations(heroes: Hero[], mainRallyHeroes?: Hero[]): Hero[][] {
-
-    const remainingHeroes: Hero[] = heroes
-
-    const rally = mainRallyHeroes ?? getBestRallyHeroes(remainingHeroes)
-
-    rally.forEach(hero => remainingHeroes.splice(remainingHeroes.indexOf(hero), 1))
-
-    const normalFormations: Hero[][] = []
-
-    const leaderHeroes = remainingHeroes.filter(hero => hero.isLeader).sort((heroA, heroB) => heroA.leaderRank! - heroB.leaderRank!)
-
-    // create n formations (6)
-    leaderHeroes.slice(0, 6).forEach((hero, i) => {
-        normalFormations.push([])
-        normalFormations[i].push(hero)
-    });
-
-    if (leaderHeroes.length < 5) {
-        remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroA.rank - heroB.rank).forEach((hero, i) => {
-            if (leaderHeroes.length + i < 5) {
-                normalFormations.push([])
-                normalFormations[leaderHeroes.length + i].push(hero)
-            }
-        })
-    }
-
-    normalFormations.forEach(heroes => remainingHeroes.splice(remainingHeroes.indexOf(heroes[0]), 1))
-
-    normalFormations.forEach((heroes, i) => {
-        remainingHeroes.sort((heroA, heroB) => heroA.rank - heroB.rank).forEach(hero => {
-            if (normalFormations[i].length < 3 && !normalFormations[i].some(formationHero => formationHero.class === hero.class)) {
-                normalFormations[i].push(hero)
-            }
-        });
-        normalFormations[i].slice(1).forEach(hero => remainingHeroes.splice(remainingHeroes.indexOf(hero), 1))
-    })
-
-    return [rally, ...normalFormations]
-}
-
-export function getBestRallyHeroes(remainingHeroes: Hero[]) {
-    const rallyFormation: Hero[] = []
-
-    const bestInfantryHero = getBestInfantryRallyHero(remainingHeroes)
-    if (bestInfantryHero) {
-        rallyFormation.push(bestInfantryHero)
-        remainingHeroes.splice(remainingHeroes.indexOf(bestInfantryHero), 1)
-    }
-    if (!bestInfantryHero) {
-        const infantryLeaderHero = remainingHeroes.sort((heroA, heroB) => (heroA.rallyHeroRank || 0) - (heroB.rallyHeroRank || 0)).find(hero => hero.isRallyHero && hero.class == HeroClass.INFANTRY)
-        if (infantryLeaderHero) {
-            rallyFormation.push(infantryLeaderHero)
-            remainingHeroes.splice(remainingHeroes.indexOf(infantryLeaderHero), 1)
-        }
-    }
-
-    const bestLancerHero = getBestLancerRallyHero(remainingHeroes)
-    if (bestLancerHero) {
-        rallyFormation.push(bestLancerHero)
-        remainingHeroes.splice(remainingHeroes.indexOf(bestLancerHero), 1)
-    }
-    if (!bestLancerHero) {
-        const lancerLeaderHero = remainingHeroes.sort((heroA, heroB) => (heroA.rallyHeroRank || 0) - (heroB.rallyHeroRank || 0)).find(hero => hero.isRallyHero && hero.class == HeroClass.LANCER)
-        if (lancerLeaderHero) {
-            rallyFormation.push(lancerLeaderHero)
-            remainingHeroes.splice(remainingHeroes.indexOf(lancerLeaderHero), 1)
-        }
-    }
-
-    const bestMarksmenHero = getBestMarksmenRallyHero(remainingHeroes)
-    if (bestMarksmenHero) {
-        rallyFormation.push(bestMarksmenHero)
-        remainingHeroes.splice(remainingHeroes.indexOf(bestMarksmenHero), 1)
-    }
-    if (!bestMarksmenHero) {
-        const marksmenLeaderHero = remainingHeroes.sort((heroA, heroB) => (heroA.rallyHeroRank || 0) - (heroB.rallyHeroRank || 0)).find(hero => hero.isRallyHero && hero.class == HeroClass.MARKSMEN)
-        if (marksmenLeaderHero) {
-            rallyFormation.push(marksmenLeaderHero)
-            remainingHeroes.splice(remainingHeroes.indexOf(marksmenLeaderHero), 1)
-        }
-    }
-
-
-    // fill up with leader heroes
-    remainingHeroes.filter(hero => hero.isRallyHero).sort((heroA, heroB) => heroA.rallyHeroRank! - heroB.rallyHeroRank!).forEach(hero => {
-        if (rallyFormation.length < 3 && !rallyFormation.some(rallyHero => rallyHero.class === hero.class)) {
-            if (hero.stars && hero.rallyHeroRequiredStars && hero.stars >= hero.rallyHeroRequiredStars) {
-                return
-            }
-            rallyFormation.push(hero)
-        }
-    });
-
-    // fill up with normal heroes
-    if (rallyFormation.length != 3) {
-        remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => heroA.rank - heroB.rank).forEach(hero => {
-            if (rallyFormation.length < 3 && !rallyFormation.some(rallyHero => rallyHero.class === hero.class)) {
-                rallyFormation.push(hero)
-            }
-        })
-    }
-
-    return rallyFormation
-}
-
-const getBestInfantryRallyHero = (heroes: Hero[]) => {
-    const jeronimo = findByName("Jeronimo", heroes)
-    const hector = findByName("Hector", heroes)
-    if (!jeronimo && hector) return hector
-    if (jeronimo && !hector) return jeronimo
-    if (!(jeronimo && hector)) {
-        return undefined // TODO: best other hero
-    }
-    if (!jeronimo.stars && hector.stars) return hector
-    if (jeronimo.stars && !hector.stars) return jeronimo
-    if (!(jeronimo.stars && hector.stars)) {
-        return undefined // TODO: best other hero
-    }
-    if (jeronimo.stars > 3) {
-        return jeronimo
-    }
-    if (hector.stars && hector.stars === 5) {
-        return hector
-    }
-    if (jeronimo.stars + 2 < (hector.stars || 0)) {
-        return hector
-    }
-    return jeronimo
-}
-
-const getBestLancerRallyHero = (heroes: Hero[]) => {
-    const sonya = findByName("Sonya", heroes)
-    const mia = findByName("Mia", heroes)
-    if (!sonya && mia) return mia
-    if (sonya && !mia) return sonya
-    if (!(sonya && mia)) {
-        return undefined // TODO: best other hero
-    }
-    if (!sonya.stars && mia.stars) return mia
-    if (sonya.stars && !mia.stars) return sonya
-    if (!(sonya.stars && mia.stars)) {
-        return undefined // TODO: best other hero
-    }
-    if (sonya.stars > 3) {
-        return sonya
-    }
-    if (mia.stars && mia.stars === 5) {
-        return mia
-    }
-    if (sonya.stars + 2 < (mia.stars || 0)) {
-        return mia
-    }
-    return sonya
-}
-
-const getBestMarksmenRallyHero = (heroes: Hero[]) => {
-    heroes
-    return undefined
 }

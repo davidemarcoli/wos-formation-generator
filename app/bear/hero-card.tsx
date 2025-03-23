@@ -1,5 +1,5 @@
 import React from 'react';
-import { getClassImage, getHeroImage, Hero } from "@/lib/heroes";
+import { getClassImage, Hero } from "@/lib/heroes";
 import {
     Card,
     CardTitle,
@@ -41,7 +41,7 @@ export default function HeroCard({
 
     return (
         <Card
-            className={`flex flex-col sm:flex-row overflow-hidden transition-all duration-300 ${isSelected ? 'ring-2 ring-black dark:ring-white' : 'ring-1 ring-border'
+            className={`flex flex-col sm:flex-row overflow-hidden ease-linear transition-all duration-300 ${isSelected ? 'ring-2 ring-black dark:ring-white' : 'ring-1 ring-border'
                 }`}
             key={hero.name}
             onClick={handleCardClick}
@@ -97,14 +97,16 @@ export default function HeroCard({
                 </div>
             </div>
             <div className="relative w-full sm:w-40 h-40">
-                <Image
-                    className="object-cover object-[center_25%] rounded-b-lg sm:rounded-r-lg sm:rounded-bl-none"
-                    alt={hero.name}
-                    src={getHeroImage(hero.name)}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 160px"
-                    priority
-                />
+                {hero.imagePath && (
+                    <Image
+                        className="object-cover object-[center_25%] rounded-b-lg sm:rounded-r-lg sm:rounded-bl-none"
+                        alt={hero.name}
+                        src={"https://www-cf.whiteoutsurvival.wiki/wp-content/uploads" + hero.imagePath}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 160px"
+                        priority
+                    />
+                )}
             </div>
         </Card>
     );
