@@ -9,7 +9,8 @@ const nextConfig = {
                 protocol: "https",
                 pathname: "/wp-content/uploads/**",
             }
-        ]
+        ],
+        unoptimized: true
     }
 };
 
