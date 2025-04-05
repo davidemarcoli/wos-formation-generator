@@ -119,7 +119,7 @@ export const HEROES: Hero[] = [
         gen: 0,
         rarity: 1,
         isRallyHero: true,
-        rallyHeroRank: 8,
+        rallyHeroRank: 9,
         rallyHeroRequiredStars: 4
     },
     {
@@ -215,7 +215,7 @@ export const HEROES: Hero[] = [
         gen: 2,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 7,
+        rallyHeroRank: 8,
         rallyHeroRequiredStars: 4
     },
     {
@@ -275,7 +275,7 @@ export const HEROES: Hero[] = [
         gen: 4,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 6,
+        rallyHeroRank: 7,
         rallyHeroRequiredStars: 4
     },
     {
@@ -322,7 +322,7 @@ export const HEROES: Hero[] = [
         gen: 5,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 5,
+        rallyHeroRank: 6,
         rallyHeroRequiredStars: 4,
         isLeader: true,
         leaderRank: 2,
@@ -355,7 +355,7 @@ export const HEROES: Hero[] = [
         gen: 6,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 4,
+        rallyHeroRank: 5,
         rallyHeroRequiredStars: 4
     },
     {
@@ -385,7 +385,7 @@ export const HEROES: Hero[] = [
         gen: 7,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 3,
+        rallyHeroRank: 4,
         rallyHeroRequiredStars: 4,
         isLeader: true,
         leaderRank: 2,
@@ -448,7 +448,7 @@ export const HEROES: Hero[] = [
         gen: 9,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 2,
+        rallyHeroRank: 3,
         rallyHeroRequiredStars: 4
     },
     {
@@ -478,11 +478,39 @@ export const HEROES: Hero[] = [
         gen: 10,
         rarity: 2,
         isRallyHero: true,
-        rallyHeroRank: 1,
+        rallyHeroRank: 2,
         rallyHeroRequiredStars: 4,
         isLeader: true,
         leaderRank: 2,
         leaderRequiredStars: 4
+    },
+    {
+        name: "Eleonora",
+        class: 0,
+        imagePath: "/2025/03/eleonora.jpg",
+        rank: 10,
+        gen: 11,
+        rarity: 2
+    },
+    {
+        name: "Lloyd",
+        class: 1,
+        imagePath: "/2025/03/Lloyd.jpg",
+        rank: 10,
+        gen: 11,
+        rarity: 2
+    },
+    {
+        name: "Rufus",
+        class: 2,
+        imagePath: "/2025/03/rufus.jpg",
+        rank: 10,
+        gen: 11,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 1,
+        isLeader: true,
+        leaderRank: 1
     }
 ]
 

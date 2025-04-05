@@ -229,6 +229,9 @@ const HeroEditor = () => {
                 if (hero.leaderRank) {
                     heroStr += `,\n        leaderRank: ${hero.leaderRank}`;
                 }
+                if (hero.leaderRequiredStars) {
+                    heroStr += `,\n        leaderRequiredStars: ${hero.leaderRequiredStars}`;
+                }
             }
 
             // Add any custom functions if they exist (like isBestRallyHero)

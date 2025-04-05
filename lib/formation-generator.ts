@@ -5,6 +5,28 @@ export interface FormationWithRatio {
     troopRatio: number[];
 }
 
+const compareByGenAndStarsAndRank = (heroA: Hero, heroB: Hero) => {
+    // First compare by generation
+    if (heroA.gen !== heroB.gen) {
+        return heroB.gen - heroA.gen; // Sort by generation (descending)
+    }
+
+    // If generations are equal, compare by stars
+    // Handle undefined stars cases
+    if (heroA.stars !== undefined && heroB.stars !== undefined) {
+        // Both have stars defined, compare normally
+        return heroB.stars - heroA.stars; // Sort by stars (descending)
+    } else if (heroA.stars !== undefined) {
+        // Only heroA has stars defined, it should come first
+        return -1;
+    } else if (heroB.stars !== undefined) {
+        // Only heroB has stars defined, it should come first
+        return 1;
+    }
+    // If neither has stars defined or stars are equal, compare by rank
+    return heroA.rank - heroB.rank; // Sort by rank (ascending)
+};
+
 export function generateFormations(heroes: Hero[], mainRallyFormation?: FormationWithRatio): FormationWithRatio[] {
 
     const remainingHeroes: Hero[] = heroes
@@ -24,49 +46,49 @@ export function generateFormations(heroes: Hero[], mainRallyFormation?: Formatio
             if (heroAMeetsStars && !heroBMeetsStars) return -1;
             if (!heroAMeetsStars && heroBMeetsStars) return 1;
 
-            // Then sort by rallyHeroRank
-            return heroA.leaderRank! - heroB.leaderRank!;
+            // Then sort by leaderRank
+            if (heroA.leaderRank! !== heroB.leaderRank!) {
+                return heroA.leaderRank! - heroB.leaderRank!;
+            }
+
+            // If both have same star requirement status and same rank, sort by gen (higher = better)
+            return heroB.gen - heroA.gen;
         })
 
     // create n formations (6)
-    leaderHeroes.slice(0, 6).forEach((hero, i) => {
-        normalFormations.push({ heroes: [], troopRatio: [5, 5, 90] })
-        normalFormations[i].heroes.push(hero)
+    leaderHeroes.slice(0, 6).forEach(hero => {
+        normalFormations.push({
+            heroes: [hero],
+            troopRatio: [5, 5, 90]
+        });
     });
 
+    // if there aren't enough leader heroes, fill up with normal heroes
     if (leaderHeroes.length < 5) {
-        remainingHeroes.filter(hero => !hero.isLeader).sort((heroA, heroB) => {
-            // First compare by generation
-            if (heroA.gen !== heroB.gen) {
-                return heroA.gen - heroB.gen; // Sort by generation (ascending)
-            }
+        // Calculate how many additional non-leader heroes we need
+        const neededHeroes = 5 - leaderHeroes.length;
 
-            // If generations are equal, compare by stars
-            // Handle undefined stars cases
-            if (heroA.stars !== undefined && heroB.stars !== undefined) {
-                // Both have stars defined, compare normally
-                return heroB.stars - heroA.stars; // Sort by stars (descending)
-            } else if (heroA.stars !== undefined) {
-                // Only heroA has stars defined, it should come first
-                return -1;
-            } else if (heroB.stars !== undefined) {
-                // Only heroB has stars defined, it should come first
-                return 1;
-            }
-            // If neither has stars defined or stars are equal, compare by rank
-            return heroA.rank - heroB.rank; // Sort by rank (ascending)
-        }).forEach((hero, i) => {
-            if (leaderHeroes.length + i < 5) {
-                normalFormations.push({ heroes: [], troopRatio: [5, 5, 90] })
-                normalFormations[leaderHeroes.length + i].heroes.push(hero)
-            }
-        })
+        // Get sorted non-leader heroes, limited to the number we need
+        const topNonLeaderHeroes = remainingHeroes
+            .filter(hero => !hero.isLeader)
+            .sort(compareByGenAndStarsAndRank)
+            .slice(0, neededHeroes);
+
+        // Create formations for each non-leader hero
+        topNonLeaderHeroes.forEach(hero => {
+            normalFormations.push({
+                heroes: [hero],
+                troopRatio: [5, 5, 90]
+            });
+        });
     }
 
     normalFormations.forEach(formation => remainingHeroes.splice(remainingHeroes.indexOf(formation.heroes[0]), 1))
 
+    remainingHeroes.sort(compareByGenAndStarsAndRank)
+
     normalFormations.forEach((heroes, i) => {
-        remainingHeroes.sort((heroA, heroB) => heroA.rank - heroB.rank).forEach(hero => {
+        remainingHeroes.forEach(hero => {
             if (normalFormations[i].heroes.length < 3 && !normalFormations[i].heroes.some(formationHero => formationHero.class === hero.class)) {
                 normalFormations[i].heroes.push(hero)
             }

@@ -24,6 +24,7 @@ export default function Home() {
           </Card>
         </main>
         <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+          Discord: @leo1305
           <a
             className="flex items-center gap-2 hover:underline hover:underline-offset-4"
             href="https://github.com/davidemarcoli/wos-formation-generator"
