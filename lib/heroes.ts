@@ -27,6 +27,8 @@ export type Hero = {
     isBestRallyHero?: (remainingHeroes: Hero[]) => boolean
 }
 
+export const IMAGES_BASE_PATH = "https://gom-s3-user-avatar.s3.us-west-2.amazonaws.com/wp-content/uploads"
+
 export const HEROES: Hero[] = [
     {
         name: "Smith",
@@ -517,13 +519,13 @@ export const HEROES: Hero[] = [
 export const getClassImage = (heroClass: HeroClass): string => {
     switch (heroClass) {
         case HeroClass.INFANTRY:
-            return "https://www-cf.whiteoutsurvival.wiki/wp-content/uploads/2023/05/infantry.png"
+            return `${IMAGES_BASE_PATH}/2023/05/infantry.png`
             // return "/images/heroes/classes/infantry.png"
         case HeroClass.LANCER:
-            return "https://www-cf.whiteoutsurvival.wiki/wp-content/uploads/2023/05/lancer.png"
+            return `${IMAGES_BASE_PATH}/2023/05/lancer.png`
         // return "/images/heroes/classes/lancer.png"
         case HeroClass.MARKSMEN:
-            return "https://www-cf.whiteoutsurvival.wiki/wp-content/uploads/2023/05/marksman.png"
+            return `${IMAGES_BASE_PATH}/2023/05/marksman.png`
             // return "/images/heroes/classes/marksman.png"
     }
 }

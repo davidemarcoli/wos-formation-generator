@@ -1,5 +1,5 @@
 import React from 'react';
-import { getClassImage, Hero } from "@/lib/heroes";
+import { getClassImage, Hero, IMAGES_BASE_PATH } from "@/lib/heroes";
 import {
     Card,
     CardTitle,
@@ -101,7 +101,7 @@ export default function HeroCard({
                     <Image
                         className="object-cover object-[center_25%] rounded-b-lg sm:rounded-r-lg sm:rounded-bl-none"
                         alt={hero.name}
-                        src={"https://www-cf.whiteoutsurvival.wiki/wp-content/uploads" + hero.imagePath}
+                        src={IMAGES_BASE_PATH + hero.imagePath}
                         fill
                         sizes="(max-width: 640px) 100vw, 160px"
                         priority
