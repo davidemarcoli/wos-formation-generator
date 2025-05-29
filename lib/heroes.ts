@@ -511,8 +511,37 @@ export const HEROES: Hero[] = [
         rarity: 2,
         isRallyHero: true,
         rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4,
         isLeader: true,
-        leaderRank: 1
+        leaderRank: 1,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Hervor",
+        class: 0,
+        imagePath: "/2025/05/21074812/20250519%E8%8B%B1%E9%9B%84%E5%A4%B4%E5%83%8FHervor.jpg",
+        rank: 10,
+        gen: 12,
+        rarity: 2,
+        isLeader: true,
+        leaderRank: 1,
+        leaderRequiredStars: 4
+    },
+    {
+        name: "Karol",
+        class: 1,
+        imagePath: "/2025/05/21074624/20250519%E8%8B%B1%E9%9B%84%E5%A4%B4%E5%83%8Fkarol.jpg",
+        rank: 10,
+        gen: 12,
+        rarity: 2
+    },
+    {
+        name: "Ligeia",
+        class: 2,
+        imagePath: "/2025/05/21074609/20250519%E8%8B%B1%E9%9B%84%E5%A4%B4%E5%83%8FLigeia.jpg",
+        rank: 10,
+        gen: 12,
+        rarity: 2
     }
 ]
 
