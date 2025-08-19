@@ -1,7 +1,13 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Github } from "lucide-react";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Coffee, Github } from "lucide-react";
 
 export default function Home() {
   return (
@@ -14,11 +20,15 @@ export default function Home() {
           <Card>
             <CardHeader>
               <CardTitle>Bear Formation Generator</CardTitle>
-              <CardDescription>Quickly generate the perfect bear formations</CardDescription>
+              <CardDescription>
+                Quickly generate the perfect bear formations
+              </CardDescription>
             </CardHeader>
             <CardFooter>
               <a href="/bear">
-                <Button data-umami-event="Navigate to Bear Formation Tool">Go to tool</Button>
+                <Button data-umami-event="Navigate to Bear Formation Tool">
+                  Go to tool
+                </Button>
               </a>
             </CardFooter>
           </Card>
@@ -34,6 +44,16 @@ export default function Home() {
           >
             <Github />
             Source Code →
+          </a>
+          <a
+            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+            href="https://buymeacoffee.com/davidemarcoli"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-umami-event="Support Developer"
+          >
+            <Coffee />
+            Support me →
           </a>
         </footer>
       </div>

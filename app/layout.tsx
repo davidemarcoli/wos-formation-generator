@@ -17,17 +17,21 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "WOS Formation Generator",
-  description: "Tool to generate hero formations for the game Whiteout Survival",
-  manifest: '/manifest.webmanifest',
-  keywords: ['Whiteout Survival', 'Heroes', 'Formations'],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? 'https://wos-formation-generator.davidemarcoli.dev'),
+  description:
+    "Tool to generate hero formations for the game Whiteout Survival",
+  manifest: "/manifest.webmanifest",
+  keywords: ["Whiteout Survival", "Heroes", "Formations"],
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL ??
+      "https://wos-formation-generator.davidemarcoli.dev"
+  ),
   robots: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+    index: true,
+    follow: true,
+    noimageindex: false,
+    "max-video-preview": -1,
+    "max-image-preview": "large",
+    "max-snippet": -1,
   },
 };
 
@@ -40,7 +44,10 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         {process.env.NODE_ENV === "production" && (
-          <Script src="https://umami.homelab.davidemarcoli.dev/script.js" data-website-id="2f46cad8-357b-4ca4-bee0-d7e15e341c34"/>
+          <Script
+            src="https://umami.homelab.davidemarcoli.dev/script.js"
+            data-website-id="2f46cad8-357b-4ca4-bee0-d7e15e341c34"
+          />
         )}
       </head>
       <body
