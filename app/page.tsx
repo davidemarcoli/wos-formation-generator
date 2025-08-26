@@ -15,7 +15,9 @@ import { Coffee, Github } from "lucide-react";
 export default function Home() {
   return (
     <div>
-      <AdInfo />
+      <div className="absolute left-0 top-0 m-4 p-4 rounded-md border">
+        <AdInfo />
+      </div>
       <div className="absolute right-0 m-4">
         <ModeToggle />
       </div>

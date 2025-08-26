@@ -22,7 +22,7 @@ export default function AdInfo() {
   }
 
   return (
-    <div className="absolute left-0 top-0 m-4 p-4 rounded-md border">
+    <div>
       <p className="mb-2">
         This page serves ads to keep the project alive.
         <br />
