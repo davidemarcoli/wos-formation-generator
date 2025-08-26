@@ -34,6 +34,7 @@ export default function AdInfo() {
           window.location.reload();
         }}
         variant="secondary"
+        data-umami-event="Disable Ads"
       >
         Disable Ads
       </Button>
@@ -43,6 +44,7 @@ export default function AdInfo() {
           setHasDismissed(true);
         }}
         className="ml-2"
+        data-umami-event="Allow Ads"
       >
         Allow Ads
       </Button>
