@@ -7,6 +7,7 @@ import FormationGenerator from "./formation-generator"
 import MainRallySelection from "./main-rally-selection"
 import { useRouter } from "next/navigation"
 import { FormationWithRatio } from "@/lib/formation-generator"
+import AdInfo from "@/components/ad-info"
 
 const storageKey = "selectedHeroes"
 
@@ -86,6 +87,7 @@ export default function BearFormation() {
 
     return (
         <div>
+            <AdInfo />
             {pageIndex == 0 &&
                 <HeroSelection heroes={HEROES} onHeroSelection={onHeroClick} selectedHeroes={selectedHeroes} resetAll={resetAll} onPageChange={onPageChange} onHeroStarSelection={onHeroStarSelection}></HeroSelection>
             }

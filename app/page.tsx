@@ -1,3 +1,6 @@
+"use client";
+
+import AdInfo from "@/components/ad-info";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +15,7 @@ import { Coffee, Github } from "lucide-react";
 export default function Home() {
   return (
     <div>
+      <AdInfo />
       <div className="absolute right-0 m-4">
         <ModeToggle />
       </div>
