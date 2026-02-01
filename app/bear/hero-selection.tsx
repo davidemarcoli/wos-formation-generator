@@ -9,6 +9,7 @@ interface HeroSelectionProps {
     selectedHeroes: Set<Hero>,
     onHeroSelection: (hero: Hero) => void,
     onHeroStarSelection: (hero: Hero, stars: number) => void,
+    onHeroWeaponSelection: (hero: Hero, weaponLevel: number) => void,
     resetAll: () => void,
     onPageChange: (indexChange: number) => void
 }
@@ -18,6 +19,7 @@ export default function HeroSelection({
     selectedHeroes,
     onHeroSelection,
     onHeroStarSelection,
+    onHeroWeaponSelection,
     resetAll,
     onPageChange
 }: HeroSelectionProps) {
@@ -58,7 +60,14 @@ export default function HeroSelection({
                             heroes?.map(hero => {
                                 const selectedHero = Array.from(selectedHeroes.values()).find(selectedHero => selectedHero.name == hero.name)
                                 return (
-                                    <HeroCard key={hero.name} hero={selectedHero || hero} isSelected={!!selectedHero} onHeroSelection={onHeroSelection} onHeroStarSelection={(stars: number) => onHeroStarSelection(hero, stars)} />
+                                    <HeroCard
+                                        key={hero.name}
+                                        hero={selectedHero || hero}
+                                        isSelected={!!selectedHero}
+                                        onHeroSelection={onHeroSelection}
+                                        onHeroStarSelection={(stars: number) => onHeroStarSelection(hero, stars)}
+                                        onHeroWeaponSelection={(weaponLevel: number) => onHeroWeaponSelection(hero, weaponLevel)}
+                                    />
                                 )
                             })
                         }

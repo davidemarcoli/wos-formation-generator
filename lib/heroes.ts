@@ -24,6 +24,12 @@ export type Hero = {
     gen: number
     rarity: HeroRarity,
     stars?: number,
+    /**
+     * Exclusive Weapon (a.k.a. Exclusive Gear) level.
+     * Usually 0-10 in-game; the Exclusive Skills typically scale up to level 5.
+     * Used here as a tie-breaker to prefer heroes with stronger expedition power.
+     */
+    exclusiveWeaponLevel?: number,
     isBestRallyHero?: (remainingHeroes: Hero[]) => boolean
 }
 

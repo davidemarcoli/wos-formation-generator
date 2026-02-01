@@ -1,5 +1,5 @@
 import React from 'react';
-import { getClassImage, Hero, IMAGES_BASE_PATH } from "@/lib/heroes";
+import { getClassImage, Hero, HeroRarity, IMAGES_BASE_PATH } from "@/lib/heroes";
 import {
     Card,
     CardTitle,
@@ -13,6 +13,7 @@ interface HeroCardProps {
     isRecommended?: boolean;
     onHeroSelection?: (hero: Hero) => void;
     onHeroStarSelection?: (stars: number) => void;
+    onHeroWeaponSelection?: (weaponLevel: number) => void;
 }
 
 export default function HeroCard({
@@ -20,7 +21,8 @@ export default function HeroCard({
     isSelected = false,
     isRecommended = false,
     onHeroSelection,
-    onHeroStarSelection
+    onHeroStarSelection,
+    onHeroWeaponSelection
 }: HeroCardProps) {
     const handleCardClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const target = event.target as Element;
@@ -37,6 +39,12 @@ export default function HeroCard({
                 onHeroStarSelection(starIndex);
             }
         }
+    };
+
+    const handleWeaponChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        if (!onHeroWeaponSelection) return;
+        const value = Number(event.target.value);
+        onHeroWeaponSelection(Number.isFinite(value) ? value : 0);
     };
 
     return (
@@ -95,6 +103,25 @@ export default function HeroCard({
                         />
                     </div>
                 </div>
+
+                {/* Exclusive Weapon exists only for Legendary heroes */}
+                {onHeroWeaponSelection && hero.rarity === HeroRarity.LEGENDARY && (
+                    <div className="mt-3 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                        <span className="text-xs text-muted-foreground">Exclusive Weapon Level</span>
+                        <select
+                            className="border rounded px-2 py-1 text-xs bg-transparent"
+                            value={hero.exclusiveWeaponLevel ?? 0}
+                            onChange={handleWeaponChange}
+                        >
+                            {Array.from({ length: 11 }, (_, i) => i).map((lvl) => (
+                                <option key={lvl} value={lvl}>
+                                    {lvl}
+                                </option>
+                            ))}
+                        </select>
+                        <span className="text-xs text-muted-foreground">(0-10)</span>
+                    </div>
+                )}
             </div>
             <div className="relative w-full sm:w-40 h-40">
                 {hero.imagePath && (
