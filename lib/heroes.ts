@@ -628,6 +628,80 @@ export const HEROES: Hero[] = [
         isLeader: true,
         leaderRank: 1,
         leaderRequiredStars: 4
+    },
+
+    {
+        name: "Seigel",
+        class: 0,
+        imagePath: "/2026/03/hero_headpic_50059.png",
+        rank: 10,
+        gen: 16,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Ursar",
+        class: 1,
+        imagePath: "/2026/03/hero_headpic_50060.png",
+        rank: 10,
+        gen: 16,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Aisling",
+        class: 2,
+        imagePath: "/2026/03/hero_headpic_50061.png",
+        rank: 10,
+        gen: 16,
+        rarity: 2,
+        isLeader: true,
+        leaderRank: 2,
+        leaderRequiredStars: 4,
+        isRallyHero: true,
+        rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4
+    },
+
+    {
+        name: "Aiden",
+        class: 0,
+        imagePath: "/2026/07/hero_headpic_50062.png",
+        rank: 10,
+        gen: 17,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Bertha",
+        class: 1,
+        imagePath: "/2026/07/hero_headpic_50063.png",
+        rank: 10,
+        gen: 17,
+        rarity: 2,
+        isLeader: true,
+        leaderRank: 2,
+        leaderRequiredStars: 4,
+        isRallyHero: true,
+        rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4
+    },
+    {
+        name: "Eleanor",
+        class: 2,
+        imagePath: "/2026/07/hero_headpic_50064.png",
+        rank: 10,
+        gen: 17,
+        rarity: 2,
+        isRallyHero: true,
+        rallyHeroRank: 1,
+        rallyHeroRequiredStars: 4
     }
 ]
 
