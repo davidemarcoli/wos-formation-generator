@@ -30,6 +30,7 @@ export default function BearFormation() {
                     return undefined
                 }
                 hero.stars = storedHero.stars
+                hero.exclusiveWeaponLevel = storedHero.exclusiveWeaponLevel
                 return hero
             }).filter(hero => !!hero)
             setSelectedHeroes(new Set(selectedHeroes))
@@ -72,6 +73,22 @@ export default function BearFormation() {
         })
     }
 
+    function onHeroWeaponSelection(hero: Hero, weaponLevel: number) {
+        setSelectedHeroes(current => {
+            const newHeroes = new Set(selectedHeroes)
+            let newHero = Array.from(current.values()).find(value => value.name == hero.name)
+            if (newHero) {
+                newHeroes.delete(newHero)
+            } else {
+                newHero = hero
+            }
+            newHero.exclusiveWeaponLevel = weaponLevel
+            newHeroes.add(newHero)
+            localStorage.setItem(storageKey, JSON.stringify(Array.from(newHeroes)))
+            return newHeroes
+        })
+    }
+
     function resetAll() {
         setSelectedHeroes(new Set())
         localStorage.setItem(storageKey, JSON.stringify([]))
@@ -91,7 +108,15 @@ export default function BearFormation() {
                 <AdInfo />
             </div> */}
             {pageIndex == 0 &&
-                <HeroSelection heroes={HEROES} onHeroSelection={onHeroClick} selectedHeroes={selectedHeroes} resetAll={resetAll} onPageChange={onPageChange} onHeroStarSelection={onHeroStarSelection}></HeroSelection>
+                <HeroSelection
+                    heroes={HEROES}
+                    onHeroSelection={onHeroClick}
+                    selectedHeroes={selectedHeroes}
+                    resetAll={resetAll}
+                    onPageChange={onPageChange}
+                    onHeroStarSelection={onHeroStarSelection}
+                    onHeroWeaponSelection={onHeroWeaponSelection}
+                />
             }
             {pageIndex == 1 &&
                 <MainRallySelection selectedHeroes={selectedHeroes} onMainRallySelection={(heroes) => setMainRallyFormation(heroes)} onPageChange={onPageChange}></MainRallySelection>
